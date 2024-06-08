@@ -1,12 +1,23 @@
 from backend.lexer import *
+from backend.parser import *
 
-# Prueba del lexer
+# Ejemplo de uso
 data = '''
-REAL var <- 3 + 4 * 5$
-ALPHA_LOOP (a < b) :
-    COMMAND print(@Hello@)$ #hello there#
+SIGMA x <- 10$
+ALPHA(x < 20):
+    x <- x + 1$
 $
 '''
+
+# Ejecución del lexer y parser
 lexer.input(data)
-for tok in lexer:
+
+while True:
+    tok = lexer.token()
+    if not tok:
+        break
     print(tok)
+
+result = parser.parse(data)
+print(result)
+

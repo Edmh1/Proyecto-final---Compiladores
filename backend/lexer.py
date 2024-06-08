@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-# Tokens list
+# Lista de tokens
 tokens = [
     'NUMBER_INTEGER',
     'NUMBER_FLOAT',
@@ -16,8 +16,10 @@ tokens = [
     'TYPE_CHAR',
     'TYPE_INTEGER',
     'TYPE_FLOAT',
-    'CONDITIONAL',
-    'LOOP',
+    'CONDITIONAL1',
+    'CONDITIONAL2',
+    'LOOP1',
+    'LOOP2',
     'BREAK',
     'RETURN',
     'LOGICAL_OP_NOT',
@@ -42,16 +44,14 @@ tokens = [
     'END_LINE'
 ]
 
-# Ignored characters
+# Ignorar caracteres como espacios y tabulaciones
 t_ignore = ' \t'
 
-# aritmetics_op 
+# Definiciones de tokens
 t_PLUS_OP = r'\+'
 t_MINUS_OP = r'-'
 t_MUL_OP = r'\*'
 t_DIV_OP = r'/'
-
-#operators 
 t_ASSIGNMENT_OP = r'<-'
 t_LESS_OP = r'<'
 t_LESS_EQUAL_OP = r'<='
@@ -59,15 +59,13 @@ t_GREATER_OP = r'>'
 t_GREATER_EQUAL_OP = r'>='
 t_EQUAL_OP = r'=='
 t_DIFFERENT_OP = r'!='
-
-#symbols
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_SEPARATION = r';'
 t_STRUCTURE_BODY = r':'
 t_END_LINE = r'\$'
 
-#Data types
+# Tipos de datos
 def t_NUMBER_FLOAT(t):
     r'\d+\.\d+'
     t.value = float(t.value)
@@ -88,7 +86,7 @@ def t_VARIABLE(t):
     r'[a-z][a-z0-9]*'
     return t
 
-#Variable types
+# Tipos de variables
 def t_TYPE_BOOLEAN(t):
     r'STATUS'
     return t
@@ -105,12 +103,18 @@ def t_TYPE_FLOAT(t):
     r'REAL'
     return t
 
-#Control_Structures
-def t_LOOP(t):
-    r'ALPHA_LOOP|BETA_LOOP'
+# Estructuras de control
+def t_LOOP1(t):
+    r'ALPHA_LOOP'
     return t
-def t_CONDITIONAL(t):
-    r'ALPHA|BETA'
+def t_LOOP2(t):
+    r'BETA_LOOP'
+    return t
+def t_CONDITIONAL1(t):
+    r'ALPHA'
+    return t
+def t_CONDITIONAL2(t):
+    r'BETA'
     return t
 def t_BREAK(t):
     r'BYEBYE'
@@ -119,7 +123,7 @@ def t_RETURN(t):
     r'ELEVATE'
     return t
 
-#Logical_op
+# Operadores lógicos
 def t_LOGICAL_OP_NOT(t):
     r'FAKE'
     return t
@@ -130,7 +134,7 @@ def t_LOGICAL_OP_OR(t):
     r'GOD'
     return t
 
-#Special_values
+# Valores especiales
 def t_TRUE(t):
     r'VERUM'
     return t
@@ -141,7 +145,7 @@ def t_NULL(t):
     r'NIHIL'
     return t
 
-#function
+# Funciones
 def t_FUNCTION_DECLARATION(t):
     r'COMMAND'
     return t
@@ -157,5 +161,5 @@ def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
-# Build the lexer
+# Construcción del lexer
 lexer = lex.lex()

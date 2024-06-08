@@ -48,6 +48,7 @@ SigmaChar is the name out group decided to give to our own programming language.
 
 
 - ## Control Flow Keywords:
+	```
 	- If → ALPHA
 	- Else → BETA
 	- While → ALPHA_LOOP
@@ -56,6 +57,7 @@ SigmaChar is the name out group decided to give to our own programming language.
 	- return → ELEVATE
 	
 - ## Variable Types:
+	```
 	- bool → STATUS
 	- int → SIGMA 
 	- float → REAL
@@ -63,6 +65,7 @@ SigmaChar is the name out group decided to give to our own programming language.
 	- str → GIGACHAD
 	
 - ## Operators:
+	```
 	- Addition (+)
 	- Subtraction (-)
 	- Multiplication (*)
@@ -76,14 +79,14 @@ SigmaChar is the name out group decided to give to our own programming language.
 	- Assignment (<-)
 	
 - ## Logical Operators:
-
+	```
 	- not → FAKE 
 	- and → MOGGED 
 	- or → GOD 
-	
+	```	
 
 - ## Symbols:
-
+	```
 	- Left Parenthesis   →  '('
 	- Right Parenthesis  →  ')'
 	- Separation         →  ';'
@@ -91,11 +94,22 @@ SigmaChar is the name out group decided to give to our own programming language.
 	- String Delimiter   →  '@'
 	- Comment Delimiter  →  '#' 
 	- End of Line        →  '$'
-	
+	```	
 
 - ## Reserved words:
-
+	```
 	- def → COMMAND
 	- True → VERUM
 	- False → FALSUM
 	- None → NIHIL
+	
+	```
+
+Here's a little example: 
+
+```
+SIGMA integer <- 2$
+REAL float <- 0$
+ALPHA (integer == 2 MOGGED float == 0)
+```
+

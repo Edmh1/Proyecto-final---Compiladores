@@ -38,34 +38,35 @@ Rule 32    term -> TRUE
 Rule 33    term -> FALSE
 Rule 34    term -> NULL
 Rule 35    assignment -> VARIABLE ASSIGNMENT_OP expression
-Rule 36    declaration -> TYPE_BOOLEAN VARIABLE
-Rule 37    declaration -> TYPE_STRING VARIABLE
-Rule 38    declaration -> TYPE_CHAR VARIABLE
-Rule 39    declaration -> TYPE_INTEGER VARIABLE
-Rule 40    declaration -> TYPE_FLOAT VARIABLE
-Rule 41    declaration -> TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-Rule 42    declaration -> TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-Rule 43    declaration -> TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-Rule 44    declaration -> TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-Rule 45    declaration -> TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+Rule 36    declaration -> TYPE_BOOLEAN assignment
+Rule 37    declaration -> TYPE_STRING assignment
+Rule 38    declaration -> TYPE_CHAR assignment
+Rule 39    declaration -> TYPE_INTEGER assignment
+Rule 40    declaration -> TYPE_FLOAT assignment
+Rule 41    declaration -> TYPE_BOOLEAN VARIABLE
+Rule 42    declaration -> TYPE_STRING VARIABLE
+Rule 43    declaration -> TYPE_CHAR VARIABLE
+Rule 44    declaration -> TYPE_INTEGER VARIABLE
+Rule 45    declaration -> TYPE_FLOAT VARIABLE
 Rule 46    conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
 Rule 47    conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
 Rule 48    loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
 Rule 49    loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
 Rule 50    function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
 Rule 51    return_statement -> RETURN expression END_LINE
-Rule 52    break_statement -> BREAK END_LINE
+Rule 52    return_statement -> RETURN END_LINE
+Rule 53    break_statement -> BREAK END_LINE
 
 Terminals, with rules where they appear
 
-ASSIGNMENT_OP        : 35 41 42 43 44 45
-BREAK                : 52
+ASSIGNMENT_OP        : 35
+BREAK                : 53
 COMMENT              : 12
 CONDITIONAL1         : 46 47
 CONDITIONAL2         : 47
 DIFFERENT_OP         : 23
 DIV_OP               : 17
-END_LINE             : 4 5 6 46 47 48 49 50 51 52
+END_LINE             : 4 5 6 46 47 48 49 50 51 52 53
 EQUAL_OP             : 22
 FALSE                : 33
 FUNCTION_DECLARATION : 50
@@ -85,7 +86,7 @@ NULL                 : 34
 NUMBER_FLOAT         : 28
 NUMBER_INTEGER       : 27
 PLUS_OP              : 14
-RETURN               : 51
+RETURN               : 51 52
 RPAREN               : 46 47 48 49 50
 SEPARATION           : 49 49
 STRUCTURE_BODY       : 46 47 47 48 49 50
@@ -97,16 +98,16 @@ TYPE_CHAR            : 38 43
 TYPE_FLOAT           : 40 45
 TYPE_INTEGER         : 39 44
 TYPE_STRING          : 37 42
-VARIABLE             : 31 35 36 37 38 39 40 41 42 43 44 45 50
+VARIABLE             : 31 35 41 42 43 44 45 50
 error                : 
 
 Nonterminals, with rules where they appear
 
-assignment           : 5
+assignment           : 5 36 37 38 39 40
 break_statement      : 11
 conditional          : 7
 declaration          : 6
-expression           : 4 14 15 16 17 18 18 19 19 20 20 21 21 22 22 23 23 24 25 25 26 26 35 41 42 43 44 45 46 47 48 49 49 49 51
+expression           : 4 14 15 16 17 18 18 19 19 20 20 21 21 22 22 23 23 24 25 25 26 26 35 46 47 48 49 49 49 51
 function_declaration : 9
 loop                 : 8
 program              : 0
@@ -147,23 +148,24 @@ state 0
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -242,23 +244,24 @@ state 2
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -640,76 +643,87 @@ state 15
 
 state 16
 
-    (36) declaration -> TYPE_BOOLEAN . VARIABLE
-    (41) declaration -> TYPE_BOOLEAN . VARIABLE ASSIGNMENT_OP expression
-
-    VARIABLE        shift and go to state 53
-
-
-state 17
-
-    (37) declaration -> TYPE_STRING . VARIABLE
-    (42) declaration -> TYPE_STRING . VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> TYPE_BOOLEAN . assignment
+    (41) declaration -> TYPE_BOOLEAN . VARIABLE
+    (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
     VARIABLE        shift and go to state 54
 
+    assignment                     shift and go to state 53
 
-state 18
+state 17
 
-    (38) declaration -> TYPE_CHAR . VARIABLE
-    (43) declaration -> TYPE_CHAR . VARIABLE ASSIGNMENT_OP expression
-
-    VARIABLE        shift and go to state 55
-
-
-state 19
-
-    (39) declaration -> TYPE_INTEGER . VARIABLE
-    (44) declaration -> TYPE_INTEGER . VARIABLE ASSIGNMENT_OP expression
+    (37) declaration -> TYPE_STRING . assignment
+    (42) declaration -> TYPE_STRING . VARIABLE
+    (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
     VARIABLE        shift and go to state 56
 
+    assignment                     shift and go to state 55
+
+state 18
+
+    (38) declaration -> TYPE_CHAR . assignment
+    (43) declaration -> TYPE_CHAR . VARIABLE
+    (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
+
+    VARIABLE        shift and go to state 58
+
+    assignment                     shift and go to state 57
+
+state 19
+
+    (39) declaration -> TYPE_INTEGER . assignment
+    (44) declaration -> TYPE_INTEGER . VARIABLE
+    (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
+
+    VARIABLE        shift and go to state 60
+
+    assignment                     shift and go to state 59
 
 state 20
 
-    (40) declaration -> TYPE_FLOAT . VARIABLE
-    (45) declaration -> TYPE_FLOAT . VARIABLE ASSIGNMENT_OP expression
+    (40) declaration -> TYPE_FLOAT . assignment
+    (45) declaration -> TYPE_FLOAT . VARIABLE
+    (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 57
+    VARIABLE        shift and go to state 62
 
+    assignment                     shift and go to state 61
 
 state 21
 
     (46) conditional -> CONDITIONAL1 . LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> CONDITIONAL1 . LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
 
-    LPAREN          shift and go to state 58
+    LPAREN          shift and go to state 63
 
 
 state 22
 
     (48) loop -> LOOP1 . LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
 
-    LPAREN          shift and go to state 59
+    LPAREN          shift and go to state 64
 
 
 state 23
 
     (49) loop -> LOOP2 . LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
 
-    LPAREN          shift and go to state 60
+    LPAREN          shift and go to state 65
 
 
 state 24
 
     (50) function_declaration -> FUNCTION_DECLARATION . VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
 
-    VARIABLE        shift and go to state 61
+    VARIABLE        shift and go to state 66
 
 
 state 25
 
     (51) return_statement -> RETURN . expression END_LINE
+    (52) return_statement -> RETURN . END_LINE
     (13) expression -> . term
     (14) expression -> . expression PLUS_OP term
     (15) expression -> . expression MINUS_OP term
@@ -733,6 +747,7 @@ state 25
     (33) term -> . FALSE
     (34) term -> . NULL
 
+    END_LINE        shift and go to state 68
     LOGICAL_OP_NOT  shift and go to state 14
     NUMBER_INTEGER  shift and go to state 27
     NUMBER_FLOAT    shift and go to state 28
@@ -743,14 +758,14 @@ state 25
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 62
+    expression                     shift and go to state 67
     term                           shift and go to state 13
 
 state 26
 
-    (52) break_statement -> BREAK . END_LINE
+    (53) break_statement -> BREAK . END_LINE
 
-    END_LINE        shift and go to state 63
+    END_LINE        shift and go to state 69
 
 
 state 27
@@ -981,7 +996,7 @@ state 36
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    term                           shift and go to state 64
+    term                           shift and go to state 70
 
 state 37
 
@@ -1004,7 +1019,7 @@ state 37
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    term                           shift and go to state 65
+    term                           shift and go to state 71
 
 state 38
 
@@ -1027,7 +1042,7 @@ state 38
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    term                           shift and go to state 66
+    term                           shift and go to state 72
 
 state 39
 
@@ -1050,7 +1065,7 @@ state 39
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    term                           shift and go to state 67
+    term                           shift and go to state 73
 
 state 40
 
@@ -1088,7 +1103,7 @@ state 40
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 68
+    expression                     shift and go to state 74
     term                           shift and go to state 13
 
 state 41
@@ -1127,7 +1142,7 @@ state 41
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 69
+    expression                     shift and go to state 75
     term                           shift and go to state 13
 
 state 42
@@ -1166,7 +1181,7 @@ state 42
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 70
+    expression                     shift and go to state 76
     term                           shift and go to state 13
 
 state 43
@@ -1205,7 +1220,7 @@ state 43
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 71
+    expression                     shift and go to state 77
     term                           shift and go to state 13
 
 state 44
@@ -1244,7 +1259,7 @@ state 44
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 72
+    expression                     shift and go to state 78
     term                           shift and go to state 13
 
 state 45
@@ -1283,7 +1298,7 @@ state 45
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 73
+    expression                     shift and go to state 79
     term                           shift and go to state 13
 
 state 46
@@ -1322,7 +1337,7 @@ state 46
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 74
+    expression                     shift and go to state 80
     term                           shift and go to state 13
 
 state 47
@@ -1361,7 +1376,7 @@ state 47
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 75
+    expression                     shift and go to state 81
     term                           shift and go to state 13
 
 state 48
@@ -1527,55 +1542,90 @@ state 52
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 76
+    expression                     shift and go to state 82
     term                           shift and go to state 13
 
 state 53
 
-    (36) declaration -> TYPE_BOOLEAN VARIABLE .
-    (41) declaration -> TYPE_BOOLEAN VARIABLE . ASSIGNMENT_OP expression
+    (36) declaration -> TYPE_BOOLEAN assignment .
 
-    END_LINE        reduce using rule 36 (declaration -> TYPE_BOOLEAN VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 77
+    END_LINE        reduce using rule 36 (declaration -> TYPE_BOOLEAN assignment .)
 
 
 state 54
 
-    (37) declaration -> TYPE_STRING VARIABLE .
-    (42) declaration -> TYPE_STRING VARIABLE . ASSIGNMENT_OP expression
+    (41) declaration -> TYPE_BOOLEAN VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 37 (declaration -> TYPE_STRING VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 78
+    END_LINE        reduce using rule 41 (declaration -> TYPE_BOOLEAN VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 52
 
 
 state 55
 
-    (38) declaration -> TYPE_CHAR VARIABLE .
-    (43) declaration -> TYPE_CHAR VARIABLE . ASSIGNMENT_OP expression
+    (37) declaration -> TYPE_STRING assignment .
 
-    END_LINE        reduce using rule 38 (declaration -> TYPE_CHAR VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 79
+    END_LINE        reduce using rule 37 (declaration -> TYPE_STRING assignment .)
 
 
 state 56
 
-    (39) declaration -> TYPE_INTEGER VARIABLE .
-    (44) declaration -> TYPE_INTEGER VARIABLE . ASSIGNMENT_OP expression
+    (42) declaration -> TYPE_STRING VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 39 (declaration -> TYPE_INTEGER VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 80
+    END_LINE        reduce using rule 42 (declaration -> TYPE_STRING VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 52
 
 
 state 57
 
-    (40) declaration -> TYPE_FLOAT VARIABLE .
-    (45) declaration -> TYPE_FLOAT VARIABLE . ASSIGNMENT_OP expression
+    (38) declaration -> TYPE_CHAR assignment .
 
-    END_LINE        reduce using rule 40 (declaration -> TYPE_FLOAT VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 81
+    END_LINE        reduce using rule 38 (declaration -> TYPE_CHAR assignment .)
 
 
 state 58
+
+    (43) declaration -> TYPE_CHAR VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+
+    END_LINE        reduce using rule 43 (declaration -> TYPE_CHAR VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 52
+
+
+state 59
+
+    (39) declaration -> TYPE_INTEGER assignment .
+
+    END_LINE        reduce using rule 39 (declaration -> TYPE_INTEGER assignment .)
+
+
+state 60
+
+    (44) declaration -> TYPE_INTEGER VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+
+    END_LINE        reduce using rule 44 (declaration -> TYPE_INTEGER VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 52
+
+
+state 61
+
+    (40) declaration -> TYPE_FLOAT assignment .
+
+    END_LINE        reduce using rule 40 (declaration -> TYPE_FLOAT assignment .)
+
+
+state 62
+
+    (45) declaration -> TYPE_FLOAT VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+
+    END_LINE        reduce using rule 45 (declaration -> TYPE_FLOAT VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 52
+
+
+state 63
 
     (46) conditional -> CONDITIONAL1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> CONDITIONAL1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
@@ -1612,51 +1662,12 @@ state 58
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 82
-    term                           shift and go to state 13
-
-state 59
-
-    (48) loop -> LOOP1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list END_LINE
-    (13) expression -> . term
-    (14) expression -> . expression PLUS_OP term
-    (15) expression -> . expression MINUS_OP term
-    (16) expression -> . expression MUL_OP term
-    (17) expression -> . expression DIV_OP term
-    (18) expression -> . expression LESS_OP expression
-    (19) expression -> . expression LESS_EQUAL_OP expression
-    (20) expression -> . expression GREATER_OP expression
-    (21) expression -> . expression GREATER_EQUAL_OP expression
-    (22) expression -> . expression EQUAL_OP expression
-    (23) expression -> . expression DIFFERENT_OP expression
-    (24) expression -> . LOGICAL_OP_NOT expression
-    (25) expression -> . expression LOGICAL_OP_AND expression
-    (26) expression -> . expression LOGICAL_OP_OR expression
-    (27) term -> . NUMBER_INTEGER
-    (28) term -> . NUMBER_FLOAT
-    (29) term -> . TEXT_STRING
-    (30) term -> . TEXT_CHAR
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-
-    LOGICAL_OP_NOT  shift and go to state 14
-    NUMBER_INTEGER  shift and go to state 27
-    NUMBER_FLOAT    shift and go to state 28
-    TEXT_STRING     shift and go to state 29
-    TEXT_CHAR       shift and go to state 30
-    VARIABLE        shift and go to state 51
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
-    NULL            shift and go to state 33
-
     expression                     shift and go to state 83
     term                           shift and go to state 13
 
-state 60
+state 64
 
-    (49) loop -> LOOP2 LPAREN . expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
+    (48) loop -> LOOP1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (13) expression -> . term
     (14) expression -> . expression PLUS_OP term
     (15) expression -> . expression MINUS_OP term
@@ -1693,14 +1704,53 @@ state 60
     expression                     shift and go to state 84
     term                           shift and go to state 13
 
-state 61
+state 65
+
+    (49) loop -> LOOP2 LPAREN . expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
+    (13) expression -> . term
+    (14) expression -> . expression PLUS_OP term
+    (15) expression -> . expression MINUS_OP term
+    (16) expression -> . expression MUL_OP term
+    (17) expression -> . expression DIV_OP term
+    (18) expression -> . expression LESS_OP expression
+    (19) expression -> . expression LESS_EQUAL_OP expression
+    (20) expression -> . expression GREATER_OP expression
+    (21) expression -> . expression GREATER_EQUAL_OP expression
+    (22) expression -> . expression EQUAL_OP expression
+    (23) expression -> . expression DIFFERENT_OP expression
+    (24) expression -> . LOGICAL_OP_NOT expression
+    (25) expression -> . expression LOGICAL_OP_AND expression
+    (26) expression -> . expression LOGICAL_OP_OR expression
+    (27) term -> . NUMBER_INTEGER
+    (28) term -> . NUMBER_FLOAT
+    (29) term -> . TEXT_STRING
+    (30) term -> . TEXT_CHAR
+    (31) term -> . VARIABLE
+    (32) term -> . TRUE
+    (33) term -> . FALSE
+    (34) term -> . NULL
+
+    LOGICAL_OP_NOT  shift and go to state 14
+    NUMBER_INTEGER  shift and go to state 27
+    NUMBER_FLOAT    shift and go to state 28
+    TEXT_STRING     shift and go to state 29
+    TEXT_CHAR       shift and go to state 30
+    VARIABLE        shift and go to state 51
+    TRUE            shift and go to state 31
+    FALSE           shift and go to state 32
+    NULL            shift and go to state 33
+
+    expression                     shift and go to state 85
+    term                           shift and go to state 13
+
+state 66
 
     (50) function_declaration -> FUNCTION_DECLARATION VARIABLE . LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
 
-    LPAREN          shift and go to state 85
+    LPAREN          shift and go to state 86
 
 
-state 62
+state 67
 
     (51) return_statement -> RETURN expression . END_LINE
     (14) expression -> expression . PLUS_OP term
@@ -1716,7 +1766,7 @@ state 62
     (25) expression -> expression . LOGICAL_OP_AND expression
     (26) expression -> expression . LOGICAL_OP_OR expression
 
-    END_LINE        shift and go to state 86
+    END_LINE        shift and go to state 87
     PLUS_OP         shift and go to state 36
     MINUS_OP        shift and go to state 37
     MUL_OP          shift and go to state 38
@@ -1731,37 +1781,67 @@ state 62
     LOGICAL_OP_OR   shift and go to state 47
 
 
-state 63
+state 68
 
-    (52) break_statement -> BREAK END_LINE .
+    (52) return_statement -> RETURN END_LINE .
 
-    COMMENT         reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    LOGICAL_OP_NOT  reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    VARIABLE        reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TYPE_BOOLEAN    reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TYPE_STRING     reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TYPE_CHAR       reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TYPE_INTEGER    reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TYPE_FLOAT      reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    CONDITIONAL1    reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    LOOP1           reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    LOOP2           reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    FUNCTION_DECLARATION reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    RETURN          reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    BREAK           reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    NUMBER_INTEGER  reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    NUMBER_FLOAT    reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TEXT_STRING     reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TEXT_CHAR       reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    TRUE            reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    FALSE           reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    NULL            reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    $end            reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    END_LINE        reduce using rule 52 (break_statement -> BREAK END_LINE .)
-    CONDITIONAL2    reduce using rule 52 (break_statement -> BREAK END_LINE .)
+    COMMENT         reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    LOGICAL_OP_NOT  reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    VARIABLE        reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TYPE_BOOLEAN    reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TYPE_STRING     reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TYPE_CHAR       reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TYPE_INTEGER    reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TYPE_FLOAT      reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    CONDITIONAL1    reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    LOOP1           reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    LOOP2           reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    FUNCTION_DECLARATION reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    RETURN          reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    BREAK           reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    NUMBER_INTEGER  reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    NUMBER_FLOAT    reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TEXT_STRING     reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TEXT_CHAR       reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    TRUE            reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    FALSE           reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    NULL            reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    $end            reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    END_LINE        reduce using rule 52 (return_statement -> RETURN END_LINE .)
+    CONDITIONAL2    reduce using rule 52 (return_statement -> RETURN END_LINE .)
 
 
-state 64
+state 69
+
+    (53) break_statement -> BREAK END_LINE .
+
+    COMMENT         reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    LOGICAL_OP_NOT  reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    VARIABLE        reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TYPE_BOOLEAN    reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TYPE_STRING     reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TYPE_CHAR       reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TYPE_INTEGER    reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TYPE_FLOAT      reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    CONDITIONAL1    reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    LOOP1           reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    LOOP2           reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    FUNCTION_DECLARATION reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    RETURN          reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    BREAK           reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    NUMBER_INTEGER  reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    NUMBER_FLOAT    reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TEXT_STRING     reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TEXT_CHAR       reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    TRUE            reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    FALSE           reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    NULL            reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    $end            reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    END_LINE        reduce using rule 53 (break_statement -> BREAK END_LINE .)
+    CONDITIONAL2    reduce using rule 53 (break_statement -> BREAK END_LINE .)
+
+
+state 70
 
     (14) expression -> expression PLUS_OP term .
 
@@ -1782,7 +1862,7 @@ state 64
     SEPARATION      reduce using rule 14 (expression -> expression PLUS_OP term .)
 
 
-state 65
+state 71
 
     (15) expression -> expression MINUS_OP term .
 
@@ -1803,7 +1883,7 @@ state 65
     SEPARATION      reduce using rule 15 (expression -> expression MINUS_OP term .)
 
 
-state 66
+state 72
 
     (16) expression -> expression MUL_OP term .
 
@@ -1824,7 +1904,7 @@ state 66
     SEPARATION      reduce using rule 16 (expression -> expression MUL_OP term .)
 
 
-state 67
+state 73
 
     (17) expression -> expression DIV_OP term .
 
@@ -1845,7 +1925,7 @@ state 67
     SEPARATION      reduce using rule 17 (expression -> expression DIV_OP term .)
 
 
-state 68
+state 74
 
     (18) expression -> expression LESS_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -1891,7 +1971,7 @@ state 68
   ! DIFFERENT_OP    [ shift and go to state 45 ]
 
 
-state 69
+state 75
 
     (19) expression -> expression LESS_EQUAL_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -1937,7 +2017,7 @@ state 69
   ! DIFFERENT_OP    [ shift and go to state 45 ]
 
 
-state 70
+state 76
 
     (20) expression -> expression GREATER_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -1983,7 +2063,7 @@ state 70
   ! DIFFERENT_OP    [ shift and go to state 45 ]
 
 
-state 71
+state 77
 
     (21) expression -> expression GREATER_EQUAL_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -2029,7 +2109,7 @@ state 71
   ! DIFFERENT_OP    [ shift and go to state 45 ]
 
 
-state 72
+state 78
 
     (22) expression -> expression EQUAL_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -2075,7 +2155,7 @@ state 72
   ! DIFFERENT_OP    [ shift and go to state 45 ]
 
 
-state 73
+state 79
 
     (23) expression -> expression DIFFERENT_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -2121,7 +2201,7 @@ state 73
   ! DIFFERENT_OP    [ shift and go to state 45 ]
 
 
-state 74
+state 80
 
     (25) expression -> expression LOGICAL_OP_AND expression .
     (14) expression -> expression . PLUS_OP term
@@ -2167,7 +2247,7 @@ state 74
   ! LOGICAL_OP_OR   [ shift and go to state 47 ]
 
 
-state 75
+state 81
 
     (26) expression -> expression LOGICAL_OP_OR expression .
     (14) expression -> expression . PLUS_OP term
@@ -2213,7 +2293,7 @@ state 75
   ! LOGICAL_OP_OR   [ shift and go to state 47 ]
 
 
-state 76
+state 82
 
     (35) assignment -> VARIABLE ASSIGNMENT_OP expression .
     (14) expression -> expression . PLUS_OP term
@@ -2244,202 +2324,7 @@ state 76
     LOGICAL_OP_OR   shift and go to state 47
 
 
-state 77
-
-    (41) declaration -> TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP . expression
-    (13) expression -> . term
-    (14) expression -> . expression PLUS_OP term
-    (15) expression -> . expression MINUS_OP term
-    (16) expression -> . expression MUL_OP term
-    (17) expression -> . expression DIV_OP term
-    (18) expression -> . expression LESS_OP expression
-    (19) expression -> . expression LESS_EQUAL_OP expression
-    (20) expression -> . expression GREATER_OP expression
-    (21) expression -> . expression GREATER_EQUAL_OP expression
-    (22) expression -> . expression EQUAL_OP expression
-    (23) expression -> . expression DIFFERENT_OP expression
-    (24) expression -> . LOGICAL_OP_NOT expression
-    (25) expression -> . expression LOGICAL_OP_AND expression
-    (26) expression -> . expression LOGICAL_OP_OR expression
-    (27) term -> . NUMBER_INTEGER
-    (28) term -> . NUMBER_FLOAT
-    (29) term -> . TEXT_STRING
-    (30) term -> . TEXT_CHAR
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-
-    LOGICAL_OP_NOT  shift and go to state 14
-    NUMBER_INTEGER  shift and go to state 27
-    NUMBER_FLOAT    shift and go to state 28
-    TEXT_STRING     shift and go to state 29
-    TEXT_CHAR       shift and go to state 30
-    VARIABLE        shift and go to state 51
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
-    NULL            shift and go to state 33
-
-    expression                     shift and go to state 87
-    term                           shift and go to state 13
-
-state 78
-
-    (42) declaration -> TYPE_STRING VARIABLE ASSIGNMENT_OP . expression
-    (13) expression -> . term
-    (14) expression -> . expression PLUS_OP term
-    (15) expression -> . expression MINUS_OP term
-    (16) expression -> . expression MUL_OP term
-    (17) expression -> . expression DIV_OP term
-    (18) expression -> . expression LESS_OP expression
-    (19) expression -> . expression LESS_EQUAL_OP expression
-    (20) expression -> . expression GREATER_OP expression
-    (21) expression -> . expression GREATER_EQUAL_OP expression
-    (22) expression -> . expression EQUAL_OP expression
-    (23) expression -> . expression DIFFERENT_OP expression
-    (24) expression -> . LOGICAL_OP_NOT expression
-    (25) expression -> . expression LOGICAL_OP_AND expression
-    (26) expression -> . expression LOGICAL_OP_OR expression
-    (27) term -> . NUMBER_INTEGER
-    (28) term -> . NUMBER_FLOAT
-    (29) term -> . TEXT_STRING
-    (30) term -> . TEXT_CHAR
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-
-    LOGICAL_OP_NOT  shift and go to state 14
-    NUMBER_INTEGER  shift and go to state 27
-    NUMBER_FLOAT    shift and go to state 28
-    TEXT_STRING     shift and go to state 29
-    TEXT_CHAR       shift and go to state 30
-    VARIABLE        shift and go to state 51
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
-    NULL            shift and go to state 33
-
-    expression                     shift and go to state 88
-    term                           shift and go to state 13
-
-state 79
-
-    (43) declaration -> TYPE_CHAR VARIABLE ASSIGNMENT_OP . expression
-    (13) expression -> . term
-    (14) expression -> . expression PLUS_OP term
-    (15) expression -> . expression MINUS_OP term
-    (16) expression -> . expression MUL_OP term
-    (17) expression -> . expression DIV_OP term
-    (18) expression -> . expression LESS_OP expression
-    (19) expression -> . expression LESS_EQUAL_OP expression
-    (20) expression -> . expression GREATER_OP expression
-    (21) expression -> . expression GREATER_EQUAL_OP expression
-    (22) expression -> . expression EQUAL_OP expression
-    (23) expression -> . expression DIFFERENT_OP expression
-    (24) expression -> . LOGICAL_OP_NOT expression
-    (25) expression -> . expression LOGICAL_OP_AND expression
-    (26) expression -> . expression LOGICAL_OP_OR expression
-    (27) term -> . NUMBER_INTEGER
-    (28) term -> . NUMBER_FLOAT
-    (29) term -> . TEXT_STRING
-    (30) term -> . TEXT_CHAR
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-
-    LOGICAL_OP_NOT  shift and go to state 14
-    NUMBER_INTEGER  shift and go to state 27
-    NUMBER_FLOAT    shift and go to state 28
-    TEXT_STRING     shift and go to state 29
-    TEXT_CHAR       shift and go to state 30
-    VARIABLE        shift and go to state 51
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
-    NULL            shift and go to state 33
-
-    expression                     shift and go to state 89
-    term                           shift and go to state 13
-
-state 80
-
-    (44) declaration -> TYPE_INTEGER VARIABLE ASSIGNMENT_OP . expression
-    (13) expression -> . term
-    (14) expression -> . expression PLUS_OP term
-    (15) expression -> . expression MINUS_OP term
-    (16) expression -> . expression MUL_OP term
-    (17) expression -> . expression DIV_OP term
-    (18) expression -> . expression LESS_OP expression
-    (19) expression -> . expression LESS_EQUAL_OP expression
-    (20) expression -> . expression GREATER_OP expression
-    (21) expression -> . expression GREATER_EQUAL_OP expression
-    (22) expression -> . expression EQUAL_OP expression
-    (23) expression -> . expression DIFFERENT_OP expression
-    (24) expression -> . LOGICAL_OP_NOT expression
-    (25) expression -> . expression LOGICAL_OP_AND expression
-    (26) expression -> . expression LOGICAL_OP_OR expression
-    (27) term -> . NUMBER_INTEGER
-    (28) term -> . NUMBER_FLOAT
-    (29) term -> . TEXT_STRING
-    (30) term -> . TEXT_CHAR
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-
-    LOGICAL_OP_NOT  shift and go to state 14
-    NUMBER_INTEGER  shift and go to state 27
-    NUMBER_FLOAT    shift and go to state 28
-    TEXT_STRING     shift and go to state 29
-    TEXT_CHAR       shift and go to state 30
-    VARIABLE        shift and go to state 51
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
-    NULL            shift and go to state 33
-
-    expression                     shift and go to state 90
-    term                           shift and go to state 13
-
-state 81
-
-    (45) declaration -> TYPE_FLOAT VARIABLE ASSIGNMENT_OP . expression
-    (13) expression -> . term
-    (14) expression -> . expression PLUS_OP term
-    (15) expression -> . expression MINUS_OP term
-    (16) expression -> . expression MUL_OP term
-    (17) expression -> . expression DIV_OP term
-    (18) expression -> . expression LESS_OP expression
-    (19) expression -> . expression LESS_EQUAL_OP expression
-    (20) expression -> . expression GREATER_OP expression
-    (21) expression -> . expression GREATER_EQUAL_OP expression
-    (22) expression -> . expression EQUAL_OP expression
-    (23) expression -> . expression DIFFERENT_OP expression
-    (24) expression -> . LOGICAL_OP_NOT expression
-    (25) expression -> . expression LOGICAL_OP_AND expression
-    (26) expression -> . expression LOGICAL_OP_OR expression
-    (27) term -> . NUMBER_INTEGER
-    (28) term -> . NUMBER_FLOAT
-    (29) term -> . TEXT_STRING
-    (30) term -> . TEXT_CHAR
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-
-    LOGICAL_OP_NOT  shift and go to state 14
-    NUMBER_INTEGER  shift and go to state 27
-    NUMBER_FLOAT    shift and go to state 28
-    TEXT_STRING     shift and go to state 29
-    TEXT_CHAR       shift and go to state 30
-    VARIABLE        shift and go to state 51
-    TRUE            shift and go to state 31
-    FALSE           shift and go to state 32
-    NULL            shift and go to state 33
-
-    expression                     shift and go to state 91
-    term                           shift and go to state 13
-
-state 82
+state 83
 
     (46) conditional -> CONDITIONAL1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> CONDITIONAL1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
@@ -2456,38 +2341,7 @@ state 82
     (25) expression -> expression . LOGICAL_OP_AND expression
     (26) expression -> expression . LOGICAL_OP_OR expression
 
-    RPAREN          shift and go to state 92
-    PLUS_OP         shift and go to state 36
-    MINUS_OP        shift and go to state 37
-    MUL_OP          shift and go to state 38
-    DIV_OP          shift and go to state 39
-    LESS_OP         shift and go to state 40
-    LESS_EQUAL_OP   shift and go to state 41
-    GREATER_OP      shift and go to state 42
-    GREATER_EQUAL_OP shift and go to state 43
-    EQUAL_OP        shift and go to state 44
-    DIFFERENT_OP    shift and go to state 45
-    LOGICAL_OP_AND  shift and go to state 46
-    LOGICAL_OP_OR   shift and go to state 47
-
-
-state 83
-
-    (48) loop -> LOOP1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list END_LINE
-    (14) expression -> expression . PLUS_OP term
-    (15) expression -> expression . MINUS_OP term
-    (16) expression -> expression . MUL_OP term
-    (17) expression -> expression . DIV_OP term
-    (18) expression -> expression . LESS_OP expression
-    (19) expression -> expression . LESS_EQUAL_OP expression
-    (20) expression -> expression . GREATER_OP expression
-    (21) expression -> expression . GREATER_EQUAL_OP expression
-    (22) expression -> expression . EQUAL_OP expression
-    (23) expression -> expression . DIFFERENT_OP expression
-    (25) expression -> expression . LOGICAL_OP_AND expression
-    (26) expression -> expression . LOGICAL_OP_OR expression
-
-    RPAREN          shift and go to state 93
+    RPAREN          shift and go to state 88
     PLUS_OP         shift and go to state 36
     MINUS_OP        shift and go to state 37
     MUL_OP          shift and go to state 38
@@ -2504,7 +2358,7 @@ state 83
 
 state 84
 
-    (49) loop -> LOOP2 LPAREN expression . SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
+    (48) loop -> LOOP1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list END_LINE
     (14) expression -> expression . PLUS_OP term
     (15) expression -> expression . MINUS_OP term
     (16) expression -> expression . MUL_OP term
@@ -2518,7 +2372,7 @@ state 84
     (25) expression -> expression . LOGICAL_OP_AND expression
     (26) expression -> expression . LOGICAL_OP_OR expression
 
-    SEPARATION      shift and go to state 94
+    RPAREN          shift and go to state 89
     PLUS_OP         shift and go to state 36
     MINUS_OP        shift and go to state 37
     MUL_OP          shift and go to state 38
@@ -2535,12 +2389,43 @@ state 84
 
 state 85
 
-    (50) function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN . RPAREN STRUCTURE_BODY statement_list END_LINE
+    (49) loop -> LOOP2 LPAREN expression . SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
+    (14) expression -> expression . PLUS_OP term
+    (15) expression -> expression . MINUS_OP term
+    (16) expression -> expression . MUL_OP term
+    (17) expression -> expression . DIV_OP term
+    (18) expression -> expression . LESS_OP expression
+    (19) expression -> expression . LESS_EQUAL_OP expression
+    (20) expression -> expression . GREATER_OP expression
+    (21) expression -> expression . GREATER_EQUAL_OP expression
+    (22) expression -> expression . EQUAL_OP expression
+    (23) expression -> expression . DIFFERENT_OP expression
+    (25) expression -> expression . LOGICAL_OP_AND expression
+    (26) expression -> expression . LOGICAL_OP_OR expression
 
-    RPAREN          shift and go to state 95
+    SEPARATION      shift and go to state 90
+    PLUS_OP         shift and go to state 36
+    MINUS_OP        shift and go to state 37
+    MUL_OP          shift and go to state 38
+    DIV_OP          shift and go to state 39
+    LESS_OP         shift and go to state 40
+    LESS_EQUAL_OP   shift and go to state 41
+    GREATER_OP      shift and go to state 42
+    GREATER_EQUAL_OP shift and go to state 43
+    EQUAL_OP        shift and go to state 44
+    DIFFERENT_OP    shift and go to state 45
+    LOGICAL_OP_AND  shift and go to state 46
+    LOGICAL_OP_OR   shift and go to state 47
 
 
 state 86
+
+    (50) function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN . RPAREN STRUCTURE_BODY statement_list END_LINE
+
+    RPAREN          shift and go to state 91
+
+
+state 87
 
     (51) return_statement -> RETURN expression END_LINE .
 
@@ -2570,177 +2455,22 @@ state 86
     CONDITIONAL2    reduce using rule 51 (return_statement -> RETURN expression END_LINE .)
 
 
-state 87
-
-    (41) declaration -> TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression .
-    (14) expression -> expression . PLUS_OP term
-    (15) expression -> expression . MINUS_OP term
-    (16) expression -> expression . MUL_OP term
-    (17) expression -> expression . DIV_OP term
-    (18) expression -> expression . LESS_OP expression
-    (19) expression -> expression . LESS_EQUAL_OP expression
-    (20) expression -> expression . GREATER_OP expression
-    (21) expression -> expression . GREATER_EQUAL_OP expression
-    (22) expression -> expression . EQUAL_OP expression
-    (23) expression -> expression . DIFFERENT_OP expression
-    (25) expression -> expression . LOGICAL_OP_AND expression
-    (26) expression -> expression . LOGICAL_OP_OR expression
-
-    END_LINE        reduce using rule 41 (declaration -> TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression .)
-    PLUS_OP         shift and go to state 36
-    MINUS_OP        shift and go to state 37
-    MUL_OP          shift and go to state 38
-    DIV_OP          shift and go to state 39
-    LESS_OP         shift and go to state 40
-    LESS_EQUAL_OP   shift and go to state 41
-    GREATER_OP      shift and go to state 42
-    GREATER_EQUAL_OP shift and go to state 43
-    EQUAL_OP        shift and go to state 44
-    DIFFERENT_OP    shift and go to state 45
-    LOGICAL_OP_AND  shift and go to state 46
-    LOGICAL_OP_OR   shift and go to state 47
-
-
 state 88
-
-    (42) declaration -> TYPE_STRING VARIABLE ASSIGNMENT_OP expression .
-    (14) expression -> expression . PLUS_OP term
-    (15) expression -> expression . MINUS_OP term
-    (16) expression -> expression . MUL_OP term
-    (17) expression -> expression . DIV_OP term
-    (18) expression -> expression . LESS_OP expression
-    (19) expression -> expression . LESS_EQUAL_OP expression
-    (20) expression -> expression . GREATER_OP expression
-    (21) expression -> expression . GREATER_EQUAL_OP expression
-    (22) expression -> expression . EQUAL_OP expression
-    (23) expression -> expression . DIFFERENT_OP expression
-    (25) expression -> expression . LOGICAL_OP_AND expression
-    (26) expression -> expression . LOGICAL_OP_OR expression
-
-    END_LINE        reduce using rule 42 (declaration -> TYPE_STRING VARIABLE ASSIGNMENT_OP expression .)
-    PLUS_OP         shift and go to state 36
-    MINUS_OP        shift and go to state 37
-    MUL_OP          shift and go to state 38
-    DIV_OP          shift and go to state 39
-    LESS_OP         shift and go to state 40
-    LESS_EQUAL_OP   shift and go to state 41
-    GREATER_OP      shift and go to state 42
-    GREATER_EQUAL_OP shift and go to state 43
-    EQUAL_OP        shift and go to state 44
-    DIFFERENT_OP    shift and go to state 45
-    LOGICAL_OP_AND  shift and go to state 46
-    LOGICAL_OP_OR   shift and go to state 47
-
-
-state 89
-
-    (43) declaration -> TYPE_CHAR VARIABLE ASSIGNMENT_OP expression .
-    (14) expression -> expression . PLUS_OP term
-    (15) expression -> expression . MINUS_OP term
-    (16) expression -> expression . MUL_OP term
-    (17) expression -> expression . DIV_OP term
-    (18) expression -> expression . LESS_OP expression
-    (19) expression -> expression . LESS_EQUAL_OP expression
-    (20) expression -> expression . GREATER_OP expression
-    (21) expression -> expression . GREATER_EQUAL_OP expression
-    (22) expression -> expression . EQUAL_OP expression
-    (23) expression -> expression . DIFFERENT_OP expression
-    (25) expression -> expression . LOGICAL_OP_AND expression
-    (26) expression -> expression . LOGICAL_OP_OR expression
-
-    END_LINE        reduce using rule 43 (declaration -> TYPE_CHAR VARIABLE ASSIGNMENT_OP expression .)
-    PLUS_OP         shift and go to state 36
-    MINUS_OP        shift and go to state 37
-    MUL_OP          shift and go to state 38
-    DIV_OP          shift and go to state 39
-    LESS_OP         shift and go to state 40
-    LESS_EQUAL_OP   shift and go to state 41
-    GREATER_OP      shift and go to state 42
-    GREATER_EQUAL_OP shift and go to state 43
-    EQUAL_OP        shift and go to state 44
-    DIFFERENT_OP    shift and go to state 45
-    LOGICAL_OP_AND  shift and go to state 46
-    LOGICAL_OP_OR   shift and go to state 47
-
-
-state 90
-
-    (44) declaration -> TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression .
-    (14) expression -> expression . PLUS_OP term
-    (15) expression -> expression . MINUS_OP term
-    (16) expression -> expression . MUL_OP term
-    (17) expression -> expression . DIV_OP term
-    (18) expression -> expression . LESS_OP expression
-    (19) expression -> expression . LESS_EQUAL_OP expression
-    (20) expression -> expression . GREATER_OP expression
-    (21) expression -> expression . GREATER_EQUAL_OP expression
-    (22) expression -> expression . EQUAL_OP expression
-    (23) expression -> expression . DIFFERENT_OP expression
-    (25) expression -> expression . LOGICAL_OP_AND expression
-    (26) expression -> expression . LOGICAL_OP_OR expression
-
-    END_LINE        reduce using rule 44 (declaration -> TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression .)
-    PLUS_OP         shift and go to state 36
-    MINUS_OP        shift and go to state 37
-    MUL_OP          shift and go to state 38
-    DIV_OP          shift and go to state 39
-    LESS_OP         shift and go to state 40
-    LESS_EQUAL_OP   shift and go to state 41
-    GREATER_OP      shift and go to state 42
-    GREATER_EQUAL_OP shift and go to state 43
-    EQUAL_OP        shift and go to state 44
-    DIFFERENT_OP    shift and go to state 45
-    LOGICAL_OP_AND  shift and go to state 46
-    LOGICAL_OP_OR   shift and go to state 47
-
-
-state 91
-
-    (45) declaration -> TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression .
-    (14) expression -> expression . PLUS_OP term
-    (15) expression -> expression . MINUS_OP term
-    (16) expression -> expression . MUL_OP term
-    (17) expression -> expression . DIV_OP term
-    (18) expression -> expression . LESS_OP expression
-    (19) expression -> expression . LESS_EQUAL_OP expression
-    (20) expression -> expression . GREATER_OP expression
-    (21) expression -> expression . GREATER_EQUAL_OP expression
-    (22) expression -> expression . EQUAL_OP expression
-    (23) expression -> expression . DIFFERENT_OP expression
-    (25) expression -> expression . LOGICAL_OP_AND expression
-    (26) expression -> expression . LOGICAL_OP_OR expression
-
-    END_LINE        reduce using rule 45 (declaration -> TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression .)
-    PLUS_OP         shift and go to state 36
-    MINUS_OP        shift and go to state 37
-    MUL_OP          shift and go to state 38
-    DIV_OP          shift and go to state 39
-    LESS_OP         shift and go to state 40
-    LESS_EQUAL_OP   shift and go to state 41
-    GREATER_OP      shift and go to state 42
-    GREATER_EQUAL_OP shift and go to state 43
-    EQUAL_OP        shift and go to state 44
-    DIFFERENT_OP    shift and go to state 45
-    LOGICAL_OP_AND  shift and go to state 46
-    LOGICAL_OP_OR   shift and go to state 47
-
-
-state 92
 
     (46) conditional -> CONDITIONAL1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
 
-    STRUCTURE_BODY  shift and go to state 96
+    STRUCTURE_BODY  shift and go to state 92
 
 
-state 93
+state 89
 
     (48) loop -> LOOP1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list END_LINE
 
-    STRUCTURE_BODY  shift and go to state 97
+    STRUCTURE_BODY  shift and go to state 93
 
 
-state 94
+state 90
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION . expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (13) expression -> . term
@@ -2776,17 +2506,17 @@ state 94
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 98
+    expression                     shift and go to state 94
     term                           shift and go to state 13
 
-state 95
+state 91
 
     (50) function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN . STRUCTURE_BODY statement_list END_LINE
 
-    STRUCTURE_BODY  shift and go to state 99
+    STRUCTURE_BODY  shift and go to state 95
 
 
-state 96
+state 92
 
     (46) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY . statement_list END_LINE
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY . statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
@@ -2816,23 +2546,24 @@ state 96
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -2865,7 +2596,7 @@ state 96
     NULL            shift and go to state 33
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 100
+    statement_list                 shift and go to state 96
     statement                      shift and go to state 3
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
@@ -2876,7 +2607,7 @@ state 96
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 97
+state 93
 
     (48) loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY . statement_list END_LINE
     (2) statement_list -> . statement_list statement
@@ -2905,23 +2636,24 @@ state 97
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -2954,7 +2686,7 @@ state 97
     NULL            shift and go to state 33
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 101
+    statement_list                 shift and go to state 97
     statement                      shift and go to state 3
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
@@ -2965,7 +2697,7 @@ state 97
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 98
+state 94
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression . SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (14) expression -> expression . PLUS_OP term
@@ -2981,7 +2713,7 @@ state 98
     (25) expression -> expression . LOGICAL_OP_AND expression
     (26) expression -> expression . LOGICAL_OP_OR expression
 
-    SEPARATION      shift and go to state 102
+    SEPARATION      shift and go to state 98
     PLUS_OP         shift and go to state 36
     MINUS_OP        shift and go to state 37
     MUL_OP          shift and go to state 38
@@ -2996,7 +2728,7 @@ state 98
     LOGICAL_OP_OR   shift and go to state 47
 
 
-state 99
+state 95
 
     (50) function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY . statement_list END_LINE
     (2) statement_list -> . statement_list statement
@@ -3025,23 +2757,24 @@ state 99
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3073,7 +2806,7 @@ state 99
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    statement_list                 shift and go to state 103
+    statement_list                 shift and go to state 99
     statement                      shift and go to state 3
     expression                     shift and go to state 4
     assignment                     shift and go to state 5
@@ -3085,7 +2818,7 @@ state 99
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 100
+state 96
 
     (46) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list . END_LINE
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list . CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
@@ -3114,23 +2847,24 @@ state 100
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3140,8 +2874,8 @@ state 100
     (33) term -> . FALSE
     (34) term -> . NULL
 
-    END_LINE        shift and go to state 104
-    CONDITIONAL2    shift and go to state 105
+    END_LINE        shift and go to state 100
+    CONDITIONAL2    shift and go to state 101
     COMMENT         shift and go to state 12
     LOGICAL_OP_NOT  shift and go to state 14
     VARIABLE        shift and go to state 15
@@ -3175,7 +2909,7 @@ state 100
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 101
+state 97
 
     (48) loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list . END_LINE
     (2) statement_list -> statement_list . statement
@@ -3203,23 +2937,24 @@ state 101
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3229,7 +2964,7 @@ state 101
     (33) term -> . FALSE
     (34) term -> . NULL
 
-    END_LINE        shift and go to state 106
+    END_LINE        shift and go to state 102
     COMMENT         shift and go to state 12
     LOGICAL_OP_NOT  shift and go to state 14
     VARIABLE        shift and go to state 15
@@ -3263,7 +2998,7 @@ state 101
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 102
+state 98
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION . expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (13) expression -> . term
@@ -3299,10 +3034,10 @@ state 102
     FALSE           shift and go to state 32
     NULL            shift and go to state 33
 
-    expression                     shift and go to state 107
+    expression                     shift and go to state 103
     term                           shift and go to state 13
 
-state 103
+state 99
 
     (50) function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list . END_LINE
     (2) statement_list -> statement_list . statement
@@ -3330,23 +3065,24 @@ state 103
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3356,7 +3092,7 @@ state 103
     (33) term -> . FALSE
     (34) term -> . NULL
 
-    END_LINE        shift and go to state 108
+    END_LINE        shift and go to state 104
     COMMENT         shift and go to state 12
     LOGICAL_OP_NOT  shift and go to state 14
     VARIABLE        shift and go to state 15
@@ -3390,7 +3126,7 @@ state 103
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 104
+state 100
 
     (46) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE .
 
@@ -3420,14 +3156,14 @@ state 104
     CONDITIONAL2    reduce using rule 46 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE .)
 
 
-state 105
+state 101
 
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 . STRUCTURE_BODY statement_list END_LINE
 
-    STRUCTURE_BODY  shift and go to state 109
+    STRUCTURE_BODY  shift and go to state 105
 
 
-state 106
+state 102
 
     (48) loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE .
 
@@ -3457,7 +3193,7 @@ state 106
     CONDITIONAL2    reduce using rule 48 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE .)
 
 
-state 107
+state 103
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION expression . RPAREN STRUCTURE_BODY statement_list END_LINE
     (14) expression -> expression . PLUS_OP term
@@ -3473,7 +3209,7 @@ state 107
     (25) expression -> expression . LOGICAL_OP_AND expression
     (26) expression -> expression . LOGICAL_OP_OR expression
 
-    RPAREN          shift and go to state 110
+    RPAREN          shift and go to state 106
     PLUS_OP         shift and go to state 36
     MINUS_OP        shift and go to state 37
     MUL_OP          shift and go to state 38
@@ -3488,7 +3224,7 @@ state 107
     LOGICAL_OP_OR   shift and go to state 47
 
 
-state 108
+state 104
 
     (50) function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE .
 
@@ -3518,7 +3254,7 @@ state 108
     CONDITIONAL2    reduce using rule 50 (function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE .)
 
 
-state 109
+state 105
 
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY . statement_list END_LINE
     (2) statement_list -> . statement_list statement
@@ -3547,23 +3283,24 @@ state 109
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3596,7 +3333,7 @@ state 109
     NULL            shift and go to state 33
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 111
+    statement_list                 shift and go to state 107
     statement                      shift and go to state 3
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
@@ -3607,14 +3344,14 @@ state 109
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 110
+state 106
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN . STRUCTURE_BODY statement_list END_LINE
 
-    STRUCTURE_BODY  shift and go to state 112
+    STRUCTURE_BODY  shift and go to state 108
 
 
-state 111
+state 107
 
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list . END_LINE
     (2) statement_list -> statement_list . statement
@@ -3642,23 +3379,24 @@ state 111
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3668,7 +3406,7 @@ state 111
     (33) term -> . FALSE
     (34) term -> . NULL
 
-    END_LINE        shift and go to state 113
+    END_LINE        shift and go to state 109
     COMMENT         shift and go to state 12
     LOGICAL_OP_NOT  shift and go to state 14
     VARIABLE        shift and go to state 15
@@ -3702,7 +3440,7 @@ state 111
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 112
+state 108
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY . statement_list END_LINE
     (2) statement_list -> . statement_list statement
@@ -3731,23 +3469,24 @@ state 112
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3780,7 +3519,7 @@ state 112
     NULL            shift and go to state 33
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 114
+    statement_list                 shift and go to state 110
     statement                      shift and go to state 3
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
@@ -3791,7 +3530,7 @@ state 112
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 113
+state 109
 
     (47) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE .
 
@@ -3821,7 +3560,7 @@ state 113
     CONDITIONAL2    reduce using rule 47 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE .)
 
 
-state 114
+state 110
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list . END_LINE
     (2) statement_list -> statement_list . statement
@@ -3849,23 +3588,24 @@ state 114
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN VARIABLE
-    (37) declaration -> . TYPE_STRING VARIABLE
-    (38) declaration -> . TYPE_CHAR VARIABLE
-    (39) declaration -> . TYPE_INTEGER VARIABLE
-    (40) declaration -> . TYPE_FLOAT VARIABLE
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-    (42) declaration -> . TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-    (43) declaration -> . TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-    (44) declaration -> . TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-    (45) declaration -> . TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression
+    (36) declaration -> . TYPE_BOOLEAN assignment
+    (37) declaration -> . TYPE_STRING assignment
+    (38) declaration -> . TYPE_CHAR assignment
+    (39) declaration -> . TYPE_INTEGER assignment
+    (40) declaration -> . TYPE_FLOAT assignment
+    (41) declaration -> . TYPE_BOOLEAN VARIABLE
+    (42) declaration -> . TYPE_STRING VARIABLE
+    (43) declaration -> . TYPE_CHAR VARIABLE
+    (44) declaration -> . TYPE_INTEGER VARIABLE
+    (45) declaration -> . TYPE_FLOAT VARIABLE
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (49) loop -> . LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE
     (50) function_declaration -> . FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE
     (51) return_statement -> . RETURN expression END_LINE
-    (52) break_statement -> . BREAK END_LINE
+    (52) return_statement -> . RETURN END_LINE
+    (53) break_statement -> . BREAK END_LINE
     (27) term -> . NUMBER_INTEGER
     (28) term -> . NUMBER_FLOAT
     (29) term -> . TEXT_STRING
@@ -3875,7 +3615,7 @@ state 114
     (33) term -> . FALSE
     (34) term -> . NULL
 
-    END_LINE        shift and go to state 115
+    END_LINE        shift and go to state 111
     COMMENT         shift and go to state 12
     LOGICAL_OP_NOT  shift and go to state 14
     VARIABLE        shift and go to state 15
@@ -3909,7 +3649,7 @@ state 114
     break_statement                shift and go to state 11
     term                           shift and go to state 13
 
-state 115
+state 111
 
     (49) loop -> LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE .
 

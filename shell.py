@@ -7,6 +7,7 @@ SIGMA x <- 10$
 ALPHA(x < 20):
     x <- x + 1$
 $
+ELEVATE$
 '''
 
 # Ejecución del lexer y parser

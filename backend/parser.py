@@ -73,38 +73,46 @@ def p_assignment(p):
     p[0] = ('assign', p[1], p[3])
 
 def p_declaration(p):
-    '''declaration : TYPE_BOOLEAN VARIABLE
+    '''declaration : TYPE_BOOLEAN assignment
+                   | TYPE_STRING assignment
+                   | TYPE_CHAR assignment
+                   | TYPE_INTEGER assignment
+                   | TYPE_FLOAT assignment
+                   | TYPE_BOOLEAN VARIABLE 
                    | TYPE_STRING VARIABLE
                    | TYPE_CHAR VARIABLE
                    | TYPE_INTEGER VARIABLE
-                   | TYPE_FLOAT VARIABLE
-                   | TYPE_BOOLEAN VARIABLE ASSIGNMENT_OP expression
-                   | TYPE_STRING VARIABLE ASSIGNMENT_OP expression
-                   | TYPE_CHAR VARIABLE ASSIGNMENT_OP expression
-                   | TYPE_INTEGER VARIABLE ASSIGNMENT_OP expression
-                   | TYPE_FLOAT VARIABLE ASSIGNMENT_OP expression'''
+                   | TYPE_FLOAT VARIABLE'''
     p[0] = ('declare', p[1], p[2])
 
 def p_conditional(p):
     '''conditional : CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
                    | CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE'''
     if len(p) == 8:
-        p[0] = ('if', p[3], p[6])
+        p[0] = ('conditional1', p[3], p[6])
     else:
-        p[0] = ('if-else', p[3], p[6], p[9])
+        p[0] = ('conditional2', p[3], p[6], p[9])
 
 def p_loop(p):
     '''loop : LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
             | LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE'''
-    p[0] = ('loop', p[3], p[6])
+    if p[1] == 'LOOP1':
+        p[0] = ('loop1', p[3], p[6])
+    else:
+        p[0] = ('loop2', p[3], p[5], p[7], p[10])
+
 
 def p_function_declaration(p):
     '''function_declaration : FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE'''
     p[0] = ('function', p[2], p[6])
 
 def p_return_statement(p):
-    '''return_statement : RETURN expression END_LINE'''
-    p[0] = ('return', p[2])
+    '''return_statement : RETURN expression END_LINE
+                        | RETURN END_LINE'''
+    if len(p) == 4:
+        p[0] = ('return', p[2])
+    else:
+        p[0] = ('return', None)
 
 def p_break_statement(p):
     '''break_statement : BREAK END_LINE'''

@@ -6,8 +6,10 @@ data = '''
 SIGMA x <- 10$
 ALPHA(x < 20):
     x <- x + 1$
+BETA:
+    x <- x + 2$
 $
-ELEVATE$
+ELEVATE x$
 '''
 
 # Ejecución del lexer y parser

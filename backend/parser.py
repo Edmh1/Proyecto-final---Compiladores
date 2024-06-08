@@ -29,11 +29,11 @@ def p_statement(p):
     '''statement : expression END_LINE
                  | assignment END_LINE
                  | declaration END_LINE
-                 | conditional
-                 | loop
-                 | function_declaration
-                 | return_statement
-                 | break_statement
+                 | conditional END_LINE
+                 | loop END_LINE
+                 | function_declaration END_LINE
+                 | return_statement END_LINE
+                 | break_statement END_LINE
                  | COMMENT'''
     p[0] = p[1]
 
@@ -86,16 +86,16 @@ def p_declaration(p):
     p[0] = ('declare', p[1], p[2])
 
 def p_conditional(p):
-    '''conditional : CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
-                   | CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list END_LINE'''
+    '''conditional : CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
+                   | CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list'''
     if len(p) == 8:
-        p[0] = ('conditional1', p[3], p[6])
+        p[0] = ('conditional', 'if', p[3], p[6])
     else:
-        p[0] = ('conditional2', p[3], p[6], p[9])
+        p[0] = ('conditional', 'if' , p[3], p[6], 'else', p[9])
 
 def p_loop(p):
-    '''loop : LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list END_LINE
-            | LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list END_LINE'''
+    '''loop : LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
+            | LOOP2 LPAREN expression SEPARATION expression SEPARATION expression RPAREN STRUCTURE_BODY statement_list'''
     if p[1] == 'LOOP1':
         p[0] = ('loop1', p[3], p[6])
     else:
@@ -103,19 +103,19 @@ def p_loop(p):
 
 
 def p_function_declaration(p):
-    '''function_declaration : FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list END_LINE'''
+    '''function_declaration : FUNCTION_DECLARATION VARIABLE LPAREN RPAREN STRUCTURE_BODY statement_list'''
     p[0] = ('function', p[2], p[6])
 
 def p_return_statement(p):
-    '''return_statement : RETURN expression END_LINE
-                        | RETURN END_LINE'''
-    if len(p) == 4:
+    '''return_statement : RETURN expression
+                        | RETURN'''
+    if len(p) == 3:
         p[0] = ('return', p[2])
     else:
         p[0] = ('return', None)
 
 def p_break_statement(p):
-    '''break_statement : BREAK END_LINE'''
+    '''break_statement : BREAK'''
     p[0] = 'break'
 
 def p_error(p):

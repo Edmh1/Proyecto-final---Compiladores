@@ -44,8 +44,11 @@ tokens = [
     'END_LINE'
 ]
 
-# Ignorar caracteres como espacios y tabulaciones
+# Ignorar caracteres como espacios, tabulaciones y enters
 t_ignore = ' \t'
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 # Definiciones de tokens
 t_PLUS_OP = r'\+'
@@ -154,9 +157,7 @@ def t_COMMENT(t):
     r'\#[^#]+\#'
     t.value = t.value[1:-1]
     return t
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+
 def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)

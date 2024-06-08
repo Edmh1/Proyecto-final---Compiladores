@@ -113,3 +113,9 @@ REAL float <- 0$
 ALPHA (integer == 2 MOGGED float == 0)
 ```
 
+## Members:
+
+- Castro Sebastián
+- Escobar Andrés
+- Manotas Eddie
+- Navarro Vladimir

@@ -1,14 +1,15 @@
 from backend.lexer import *
 from backend.parser import *
+from backend.interprete import *
 
 # Ejemplo de uso
 data = '''
-SIGMA x <- 10$
-ALPHA(x < 20):
+SIGMA x$
+x <- 10$
+ALPHA_LOOP(x < 20):
     x <- x + 1$
-BETA:
-    x <- x + 2$
 $
+x <- x +2$
 ELEVATE x$
 '''
 
@@ -22,5 +23,4 @@ while True:
     print(tok)
 
 result = parser.parse(data)
-print(result)
-
+print(interpreter.visit(result))

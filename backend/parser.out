@@ -38,16 +38,16 @@ Rule 32    term -> TRUE
 Rule 33    term -> FALSE
 Rule 34    term -> NULL
 Rule 35    assignment -> VARIABLE ASSIGNMENT_OP expression
-Rule 36    declaration -> TYPE_BOOLEAN assignment
-Rule 37    declaration -> TYPE_STRING assignment
-Rule 38    declaration -> TYPE_CHAR assignment
-Rule 39    declaration -> TYPE_INTEGER assignment
-Rule 40    declaration -> TYPE_FLOAT assignment
-Rule 41    declaration -> TYPE_BOOLEAN VARIABLE
-Rule 42    declaration -> TYPE_STRING VARIABLE
-Rule 43    declaration -> TYPE_CHAR VARIABLE
-Rule 44    declaration -> TYPE_INTEGER VARIABLE
-Rule 45    declaration -> TYPE_FLOAT VARIABLE
+Rule 36    declaration -> TYPE_BOOLEAN VARIABLE
+Rule 37    declaration -> TYPE_STRING VARIABLE
+Rule 38    declaration -> TYPE_CHAR VARIABLE
+Rule 39    declaration -> TYPE_INTEGER VARIABLE
+Rule 40    declaration -> TYPE_FLOAT VARIABLE
+Rule 41    declaration -> TYPE_BOOLEAN assignment
+Rule 42    declaration -> TYPE_STRING assignment
+Rule 43    declaration -> TYPE_CHAR assignment
+Rule 44    declaration -> TYPE_INTEGER assignment
+Rule 45    declaration -> TYPE_FLOAT assignment
 Rule 46    conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
 Rule 47    conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
 Rule 48    loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -56,12 +56,13 @@ Rule 50    function_declaration -> FUNCTION_DECLARATION VARIABLE LPAREN RPAREN S
 Rule 51    return_statement -> RETURN expression
 Rule 52    return_statement -> RETURN
 Rule 53    break_statement -> BREAK
+Rule 54    comment -> COMMENT
 
 Terminals, with rules where they appear
 
 ASSIGNMENT_OP        : 35
 BREAK                : 53
-COMMENT              : 12
+COMMENT              : 12 54
 CONDITIONAL1         : 46 47
 CONDITIONAL2         : 47
 DIFFERENT_OP         : 23
@@ -98,13 +99,14 @@ TYPE_CHAR            : 38 43
 TYPE_FLOAT           : 40 45
 TYPE_INTEGER         : 39 44
 TYPE_STRING          : 37 42
-VARIABLE             : 31 35 41 42 43 44 45 50
+VARIABLE             : 31 35 36 37 38 39 40 50
 error                : 
 
 Nonterminals, with rules where they appear
 
-assignment           : 5 36 37 38 39 40
+assignment           : 5 41 42 43 44 45
 break_statement      : 11
+comment              : 
 conditional          : 7
 declaration          : 6
 expression           : 4 14 15 16 17 18 18 19 19 20 20 21 21 22 22 23 23 24 25 25 26 26 35 46 47 48 49 49 49 51
@@ -148,16 +150,16 @@ state 0
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -244,16 +246,16 @@ state 2
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -528,53 +530,53 @@ state 15
 
 state 16
 
-    (36) declaration -> TYPE_BOOLEAN . assignment
-    (41) declaration -> TYPE_BOOLEAN . VARIABLE
+    (36) declaration -> TYPE_BOOLEAN . VARIABLE
+    (41) declaration -> TYPE_BOOLEAN . assignment
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 59
+    VARIABLE        shift and go to state 58
 
-    assignment                     shift and go to state 58
+    assignment                     shift and go to state 59
 
 state 17
 
-    (37) declaration -> TYPE_STRING . assignment
-    (42) declaration -> TYPE_STRING . VARIABLE
+    (37) declaration -> TYPE_STRING . VARIABLE
+    (42) declaration -> TYPE_STRING . assignment
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 61
+    VARIABLE        shift and go to state 60
 
-    assignment                     shift and go to state 60
+    assignment                     shift and go to state 61
 
 state 18
 
-    (38) declaration -> TYPE_CHAR . assignment
-    (43) declaration -> TYPE_CHAR . VARIABLE
+    (38) declaration -> TYPE_CHAR . VARIABLE
+    (43) declaration -> TYPE_CHAR . assignment
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 63
+    VARIABLE        shift and go to state 62
 
-    assignment                     shift and go to state 62
+    assignment                     shift and go to state 63
 
 state 19
 
-    (39) declaration -> TYPE_INTEGER . assignment
-    (44) declaration -> TYPE_INTEGER . VARIABLE
+    (39) declaration -> TYPE_INTEGER . VARIABLE
+    (44) declaration -> TYPE_INTEGER . assignment
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 65
+    VARIABLE        shift and go to state 64
 
-    assignment                     shift and go to state 64
+    assignment                     shift and go to state 65
 
 state 20
 
-    (40) declaration -> TYPE_FLOAT . assignment
-    (45) declaration -> TYPE_FLOAT . VARIABLE
+    (40) declaration -> TYPE_FLOAT . VARIABLE
+    (45) declaration -> TYPE_FLOAT . assignment
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 66
 
-    assignment                     shift and go to state 66
+    assignment                     shift and go to state 67
 
 state 21
 
@@ -1582,82 +1584,82 @@ state 57
 
 state 58
 
-    (36) declaration -> TYPE_BOOLEAN assignment .
+    (36) declaration -> TYPE_BOOLEAN VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 36 (declaration -> TYPE_BOOLEAN assignment .)
+    END_LINE        reduce using rule 36 (declaration -> TYPE_BOOLEAN VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 57
 
 
 state 59
 
-    (41) declaration -> TYPE_BOOLEAN VARIABLE .
-    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+    (41) declaration -> TYPE_BOOLEAN assignment .
 
-    END_LINE        reduce using rule 41 (declaration -> TYPE_BOOLEAN VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 57
+    END_LINE        reduce using rule 41 (declaration -> TYPE_BOOLEAN assignment .)
 
 
 state 60
 
-    (37) declaration -> TYPE_STRING assignment .
+    (37) declaration -> TYPE_STRING VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 37 (declaration -> TYPE_STRING assignment .)
+    END_LINE        reduce using rule 37 (declaration -> TYPE_STRING VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 57
 
 
 state 61
 
-    (42) declaration -> TYPE_STRING VARIABLE .
-    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+    (42) declaration -> TYPE_STRING assignment .
 
-    END_LINE        reduce using rule 42 (declaration -> TYPE_STRING VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 57
+    END_LINE        reduce using rule 42 (declaration -> TYPE_STRING assignment .)
 
 
 state 62
 
-    (38) declaration -> TYPE_CHAR assignment .
+    (38) declaration -> TYPE_CHAR VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 38 (declaration -> TYPE_CHAR assignment .)
+    END_LINE        reduce using rule 38 (declaration -> TYPE_CHAR VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 57
 
 
 state 63
 
-    (43) declaration -> TYPE_CHAR VARIABLE .
-    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+    (43) declaration -> TYPE_CHAR assignment .
 
-    END_LINE        reduce using rule 43 (declaration -> TYPE_CHAR VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 57
+    END_LINE        reduce using rule 43 (declaration -> TYPE_CHAR assignment .)
 
 
 state 64
 
-    (39) declaration -> TYPE_INTEGER assignment .
+    (39) declaration -> TYPE_INTEGER VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 39 (declaration -> TYPE_INTEGER assignment .)
+    END_LINE        reduce using rule 39 (declaration -> TYPE_INTEGER VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 57
 
 
 state 65
 
-    (44) declaration -> TYPE_INTEGER VARIABLE .
-    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+    (44) declaration -> TYPE_INTEGER assignment .
 
-    END_LINE        reduce using rule 44 (declaration -> TYPE_INTEGER VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 57
+    END_LINE        reduce using rule 44 (declaration -> TYPE_INTEGER assignment .)
 
 
 state 66
 
-    (40) declaration -> TYPE_FLOAT assignment .
+    (40) declaration -> TYPE_FLOAT VARIABLE .
+    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    END_LINE        reduce using rule 40 (declaration -> TYPE_FLOAT assignment .)
+    END_LINE        reduce using rule 40 (declaration -> TYPE_FLOAT VARIABLE .)
+    ASSIGNMENT_OP   shift and go to state 57
 
 
 state 67
 
-    (45) declaration -> TYPE_FLOAT VARIABLE .
-    (35) assignment -> VARIABLE . ASSIGNMENT_OP expression
+    (45) declaration -> TYPE_FLOAT assignment .
 
-    END_LINE        reduce using rule 45 (declaration -> TYPE_FLOAT VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 57
+    END_LINE        reduce using rule 45 (declaration -> TYPE_FLOAT assignment .)
 
 
 state 68
@@ -2491,16 +2493,16 @@ state 94
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -2581,16 +2583,16 @@ state 95
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -2702,16 +2704,16 @@ state 97
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -2792,16 +2794,16 @@ state 98
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -2882,16 +2884,16 @@ state 99
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -3010,16 +3012,16 @@ state 101
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -3138,16 +3140,16 @@ state 104
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -3234,16 +3236,16 @@ state 106
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -3324,16 +3326,16 @@ state 107
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
@@ -3413,16 +3415,16 @@ state 108
     (25) expression -> . expression LOGICAL_OP_AND expression
     (26) expression -> . expression LOGICAL_OP_OR expression
     (35) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (36) declaration -> . TYPE_BOOLEAN assignment
-    (37) declaration -> . TYPE_STRING assignment
-    (38) declaration -> . TYPE_CHAR assignment
-    (39) declaration -> . TYPE_INTEGER assignment
-    (40) declaration -> . TYPE_FLOAT assignment
-    (41) declaration -> . TYPE_BOOLEAN VARIABLE
-    (42) declaration -> . TYPE_STRING VARIABLE
-    (43) declaration -> . TYPE_CHAR VARIABLE
-    (44) declaration -> . TYPE_INTEGER VARIABLE
-    (45) declaration -> . TYPE_FLOAT VARIABLE
+    (36) declaration -> . TYPE_BOOLEAN VARIABLE
+    (37) declaration -> . TYPE_STRING VARIABLE
+    (38) declaration -> . TYPE_CHAR VARIABLE
+    (39) declaration -> . TYPE_INTEGER VARIABLE
+    (40) declaration -> . TYPE_FLOAT VARIABLE
+    (41) declaration -> . TYPE_BOOLEAN assignment
+    (42) declaration -> . TYPE_STRING assignment
+    (43) declaration -> . TYPE_CHAR assignment
+    (44) declaration -> . TYPE_INTEGER assignment
+    (45) declaration -> . TYPE_FLOAT assignment
     (46) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (47) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
     (48) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list

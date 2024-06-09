@@ -4,13 +4,7 @@ from backend.interprete import *
 
 # Ejemplo de uso
 data = '''
-SIGMA x$
-x <- 10$
-ALPHA_LOOP(x < 20):
-    x <- x + 1$
-$
-x <- x +2$
-ELEVATE x$
+ELEVATE 1+(2/7)$
 '''
 
 # Ejecución del lexer y parser

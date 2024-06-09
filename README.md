@@ -112,6 +112,7 @@ SIGMA integer <- 2$
 REAL float <- 0$
 ALPHA (integer == 2 MOGGED float == 0):
 	float <- integer * 3.1416$
+$
 ```
 
 ## Members:

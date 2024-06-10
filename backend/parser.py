@@ -32,8 +32,8 @@ def p_statement(p):
     '''statement : expression END_LINE
                  | assignment END_LINE
                  | declaration END_LINE
-                 | conditional
-                 | loop
+                 | conditional END_LINE
+                 | loop END_LINE
                  | return_statement END_LINE
                  | break_statement END_LINE
                  | comment

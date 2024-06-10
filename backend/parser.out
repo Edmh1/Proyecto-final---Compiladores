@@ -15,8 +15,8 @@ Rule 3     statement_list -> statement
 Rule 4     statement -> expression END_LINE
 Rule 5     statement -> assignment END_LINE
 Rule 6     statement -> declaration END_LINE
-Rule 7     statement -> conditional
-Rule 8     statement -> loop
+Rule 7     statement -> conditional END_LINE
+Rule 8     statement -> loop END_LINE
 Rule 9     statement -> return_statement END_LINE
 Rule 10    statement -> break_statement END_LINE
 Rule 11    statement -> comment
@@ -74,7 +74,7 @@ CONDITIONAL1         : 48 49
 CONDITIONAL2         : 49
 DIFFERENT_OP         : 24
 DIV_OP               : 18
-END_LINE             : 4 5 6 9 10
+END_LINE             : 4 5 6 7 8 9 10
 EQUAL_OP             : 23
 FALSE                : 33
 FUNCTION_DECLARATION : 
@@ -138,8 +138,8 @@ state 0
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -240,8 +240,8 @@ state 2
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -356,6 +356,7 @@ state 3
     TEXT_CHAR       reduce using rule 3 (statement_list -> statement .)
     $end            reduce using rule 3 (statement_list -> statement .)
     CONDITIONAL2    reduce using rule 3 (statement_list -> statement .)
+    END_LINE        reduce using rule 3 (statement_list -> statement .)
 
 
 state 4
@@ -381,76 +382,30 @@ state 6
 
 state 7
 
-    (7) statement -> conditional .
+    (7) statement -> conditional . END_LINE
 
-    VARIABLE        reduce using rule 7 (statement -> conditional .)
-    TYPE_BOOLEAN    reduce using rule 7 (statement -> conditional .)
-    TYPE_STRING     reduce using rule 7 (statement -> conditional .)
-    TYPE_CHAR       reduce using rule 7 (statement -> conditional .)
-    TYPE_INTEGER    reduce using rule 7 (statement -> conditional .)
-    TYPE_FLOAT      reduce using rule 7 (statement -> conditional .)
-    CONDITIONAL1    reduce using rule 7 (statement -> conditional .)
-    LOOP1           reduce using rule 7 (statement -> conditional .)
-    LOOP2           reduce using rule 7 (statement -> conditional .)
-    RETURN          reduce using rule 7 (statement -> conditional .)
-    BREAK           reduce using rule 7 (statement -> conditional .)
-    COMMENT         reduce using rule 7 (statement -> conditional .)
-    MINUS_OP        reduce using rule 7 (statement -> conditional .)
-    LOGICAL_OP_NOT  reduce using rule 7 (statement -> conditional .)
-    LPAREN          reduce using rule 7 (statement -> conditional .)
-    NUMBER_INTEGER  reduce using rule 7 (statement -> conditional .)
-    NUMBER_FLOAT    reduce using rule 7 (statement -> conditional .)
-    TRUE            reduce using rule 7 (statement -> conditional .)
-    FALSE           reduce using rule 7 (statement -> conditional .)
-    NULL            reduce using rule 7 (statement -> conditional .)
-    TEXT_STRING     reduce using rule 7 (statement -> conditional .)
-    TEXT_CHAR       reduce using rule 7 (statement -> conditional .)
-    $end            reduce using rule 7 (statement -> conditional .)
-    CONDITIONAL2    reduce using rule 7 (statement -> conditional .)
+    END_LINE        shift and go to state 42
 
 
 state 8
 
-    (8) statement -> loop .
+    (8) statement -> loop . END_LINE
 
-    VARIABLE        reduce using rule 8 (statement -> loop .)
-    TYPE_BOOLEAN    reduce using rule 8 (statement -> loop .)
-    TYPE_STRING     reduce using rule 8 (statement -> loop .)
-    TYPE_CHAR       reduce using rule 8 (statement -> loop .)
-    TYPE_INTEGER    reduce using rule 8 (statement -> loop .)
-    TYPE_FLOAT      reduce using rule 8 (statement -> loop .)
-    CONDITIONAL1    reduce using rule 8 (statement -> loop .)
-    LOOP1           reduce using rule 8 (statement -> loop .)
-    LOOP2           reduce using rule 8 (statement -> loop .)
-    RETURN          reduce using rule 8 (statement -> loop .)
-    BREAK           reduce using rule 8 (statement -> loop .)
-    COMMENT         reduce using rule 8 (statement -> loop .)
-    MINUS_OP        reduce using rule 8 (statement -> loop .)
-    LOGICAL_OP_NOT  reduce using rule 8 (statement -> loop .)
-    LPAREN          reduce using rule 8 (statement -> loop .)
-    NUMBER_INTEGER  reduce using rule 8 (statement -> loop .)
-    NUMBER_FLOAT    reduce using rule 8 (statement -> loop .)
-    TRUE            reduce using rule 8 (statement -> loop .)
-    FALSE           reduce using rule 8 (statement -> loop .)
-    NULL            reduce using rule 8 (statement -> loop .)
-    TEXT_STRING     reduce using rule 8 (statement -> loop .)
-    TEXT_CHAR       reduce using rule 8 (statement -> loop .)
-    $end            reduce using rule 8 (statement -> loop .)
-    CONDITIONAL2    reduce using rule 8 (statement -> loop .)
+    END_LINE        shift and go to state 43
 
 
 state 9
 
     (9) statement -> return_statement . END_LINE
 
-    END_LINE        shift and go to state 42
+    END_LINE        shift and go to state 44
 
 
 state 10
 
     (10) statement -> break_statement . END_LINE
 
-    END_LINE        shift and go to state 43
+    END_LINE        shift and go to state 45
 
 
 state 11
@@ -481,6 +436,7 @@ state 11
     TEXT_CHAR       reduce using rule 11 (statement -> comment .)
     $end            reduce using rule 11 (statement -> comment .)
     CONDITIONAL2    reduce using rule 11 (statement -> comment .)
+    END_LINE        reduce using rule 11 (statement -> comment .)
 
 
 state 12
@@ -518,16 +474,16 @@ state 14
     END_LINE        reduce using rule 14 (expression -> primary_expression .)
     RPAREN          reduce using rule 14 (expression -> primary_expression .)
     SEPARATION      reduce using rule 14 (expression -> primary_expression .)
-    PLUS_OP         shift and go to state 44
-    MINUS_OP        shift and go to state 45
-    MUL_OP          shift and go to state 46
-    DIV_OP          shift and go to state 47
-    LESS_OP         shift and go to state 48
-    GREATER_OP      shift and go to state 49
-    LESS_EQUAL_OP   shift and go to state 50
-    GREATER_EQUAL_OP shift and go to state 51
-    EQUAL_OP        shift and go to state 52
-    DIFFERENT_OP    shift and go to state 53
+    PLUS_OP         shift and go to state 46
+    MINUS_OP        shift and go to state 47
+    MUL_OP          shift and go to state 48
+    DIV_OP          shift and go to state 49
+    LESS_OP         shift and go to state 50
+    GREATER_OP      shift and go to state 51
+    LESS_EQUAL_OP   shift and go to state 52
+    GREATER_EQUAL_OP shift and go to state 53
+    EQUAL_OP        shift and go to state 54
+    DIFFERENT_OP    shift and go to state 55
 
 
 state 15
@@ -535,7 +491,7 @@ state 15
     (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
     (31) term -> VARIABLE .
 
-    ASSIGNMENT_OP   shift and go to state 54
+    ASSIGNMENT_OP   shift and go to state 56
     PLUS_OP         reduce using rule 31 (term -> VARIABLE .)
     MINUS_OP        reduce using rule 31 (term -> VARIABLE .)
     MUL_OP          reduce using rule 31 (term -> VARIABLE .)
@@ -555,9 +511,9 @@ state 16
     (43) declaration -> TYPE_BOOLEAN . assignment
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 55
+    VARIABLE        shift and go to state 57
 
-    assignment                     shift and go to state 56
+    assignment                     shift and go to state 58
 
 state 17
 
@@ -565,9 +521,9 @@ state 17
     (44) declaration -> TYPE_STRING . assignment
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 57
+    VARIABLE        shift and go to state 59
 
-    assignment                     shift and go to state 58
+    assignment                     shift and go to state 60
 
 state 18
 
@@ -575,9 +531,9 @@ state 18
     (45) declaration -> TYPE_CHAR . assignment
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 59
+    VARIABLE        shift and go to state 61
 
-    assignment                     shift and go to state 60
+    assignment                     shift and go to state 62
 
 state 19
 
@@ -585,9 +541,9 @@ state 19
     (46) declaration -> TYPE_INTEGER . assignment
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 61
+    VARIABLE        shift and go to state 63
 
-    assignment                     shift and go to state 62
+    assignment                     shift and go to state 64
 
 state 20
 
@@ -595,16 +551,16 @@ state 20
     (47) declaration -> TYPE_FLOAT . assignment
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 63
+    VARIABLE        shift and go to state 65
 
-    assignment                     shift and go to state 64
+    assignment                     shift and go to state 66
 
 state 21
 
     (48) conditional -> CONDITIONAL1 . LPAREN expression RPAREN STRUCTURE_BODY statement_list
     (49) conditional -> CONDITIONAL1 . LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
 
-    LPAREN          shift and go to state 65
+    LPAREN          shift and go to state 67
 
 
 state 22
@@ -641,14 +597,14 @@ state 22
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    expression                     shift and go to state 66
+    expression                     shift and go to state 68
     binary_expression              shift and go to state 12
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
@@ -658,14 +614,14 @@ state 23
 
     (50) loop -> LOOP1 . LPAREN expression RPAREN STRUCTURE_BODY statement_list
 
-    LPAREN          shift and go to state 68
+    LPAREN          shift and go to state 70
 
 
 state 24
 
     (51) loop -> LOOP2 . LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
 
-    LPAREN          shift and go to state 69
+    LPAREN          shift and go to state 71
 
 
 state 25
@@ -704,14 +660,14 @@ state 25
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    expression                     shift and go to state 70
+    expression                     shift and go to state 72
     binary_expression              shift and go to state 12
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
@@ -752,6 +708,7 @@ state 27
     TEXT_CHAR       reduce using rule 55 (comment -> COMMENT .)
     $end            reduce using rule 55 (comment -> COMMENT .)
     CONDITIONAL2    reduce using rule 55 (comment -> COMMENT .)
+    END_LINE        reduce using rule 55 (comment -> COMMENT .)
 
 
 state 28
@@ -771,14 +728,14 @@ state 28
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 71
+    primary_expression             shift and go to state 73
     term                           shift and go to state 30
 
 state 29
@@ -798,14 +755,14 @@ state 29
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 72
+    primary_expression             shift and go to state 74
     term                           shift and go to state 30
 
 state 30
@@ -988,6 +945,7 @@ state 38
     TEXT_CHAR       reduce using rule 2 (statement_list -> statement_list statement .)
     $end            reduce using rule 2 (statement_list -> statement_list statement .)
     CONDITIONAL2    reduce using rule 2 (statement_list -> statement_list statement .)
+    END_LINE        reduce using rule 2 (statement_list -> statement_list statement .)
 
 
 state 39
@@ -1018,6 +976,7 @@ state 39
     TEXT_CHAR       reduce using rule 4 (statement -> expression END_LINE .)
     $end            reduce using rule 4 (statement -> expression END_LINE .)
     CONDITIONAL2    reduce using rule 4 (statement -> expression END_LINE .)
+    END_LINE        reduce using rule 4 (statement -> expression END_LINE .)
 
 
 state 40
@@ -1048,6 +1007,7 @@ state 40
     TEXT_CHAR       reduce using rule 5 (statement -> assignment END_LINE .)
     $end            reduce using rule 5 (statement -> assignment END_LINE .)
     CONDITIONAL2    reduce using rule 5 (statement -> assignment END_LINE .)
+    END_LINE        reduce using rule 5 (statement -> assignment END_LINE .)
 
 
 state 41
@@ -1078,9 +1038,72 @@ state 41
     TEXT_CHAR       reduce using rule 6 (statement -> declaration END_LINE .)
     $end            reduce using rule 6 (statement -> declaration END_LINE .)
     CONDITIONAL2    reduce using rule 6 (statement -> declaration END_LINE .)
+    END_LINE        reduce using rule 6 (statement -> declaration END_LINE .)
 
 
 state 42
+
+    (7) statement -> conditional END_LINE .
+
+    VARIABLE        reduce using rule 7 (statement -> conditional END_LINE .)
+    TYPE_BOOLEAN    reduce using rule 7 (statement -> conditional END_LINE .)
+    TYPE_STRING     reduce using rule 7 (statement -> conditional END_LINE .)
+    TYPE_CHAR       reduce using rule 7 (statement -> conditional END_LINE .)
+    TYPE_INTEGER    reduce using rule 7 (statement -> conditional END_LINE .)
+    TYPE_FLOAT      reduce using rule 7 (statement -> conditional END_LINE .)
+    CONDITIONAL1    reduce using rule 7 (statement -> conditional END_LINE .)
+    LOOP1           reduce using rule 7 (statement -> conditional END_LINE .)
+    LOOP2           reduce using rule 7 (statement -> conditional END_LINE .)
+    RETURN          reduce using rule 7 (statement -> conditional END_LINE .)
+    BREAK           reduce using rule 7 (statement -> conditional END_LINE .)
+    COMMENT         reduce using rule 7 (statement -> conditional END_LINE .)
+    MINUS_OP        reduce using rule 7 (statement -> conditional END_LINE .)
+    LOGICAL_OP_NOT  reduce using rule 7 (statement -> conditional END_LINE .)
+    LPAREN          reduce using rule 7 (statement -> conditional END_LINE .)
+    NUMBER_INTEGER  reduce using rule 7 (statement -> conditional END_LINE .)
+    NUMBER_FLOAT    reduce using rule 7 (statement -> conditional END_LINE .)
+    TRUE            reduce using rule 7 (statement -> conditional END_LINE .)
+    FALSE           reduce using rule 7 (statement -> conditional END_LINE .)
+    NULL            reduce using rule 7 (statement -> conditional END_LINE .)
+    TEXT_STRING     reduce using rule 7 (statement -> conditional END_LINE .)
+    TEXT_CHAR       reduce using rule 7 (statement -> conditional END_LINE .)
+    $end            reduce using rule 7 (statement -> conditional END_LINE .)
+    CONDITIONAL2    reduce using rule 7 (statement -> conditional END_LINE .)
+    END_LINE        reduce using rule 7 (statement -> conditional END_LINE .)
+
+
+state 43
+
+    (8) statement -> loop END_LINE .
+
+    VARIABLE        reduce using rule 8 (statement -> loop END_LINE .)
+    TYPE_BOOLEAN    reduce using rule 8 (statement -> loop END_LINE .)
+    TYPE_STRING     reduce using rule 8 (statement -> loop END_LINE .)
+    TYPE_CHAR       reduce using rule 8 (statement -> loop END_LINE .)
+    TYPE_INTEGER    reduce using rule 8 (statement -> loop END_LINE .)
+    TYPE_FLOAT      reduce using rule 8 (statement -> loop END_LINE .)
+    CONDITIONAL1    reduce using rule 8 (statement -> loop END_LINE .)
+    LOOP1           reduce using rule 8 (statement -> loop END_LINE .)
+    LOOP2           reduce using rule 8 (statement -> loop END_LINE .)
+    RETURN          reduce using rule 8 (statement -> loop END_LINE .)
+    BREAK           reduce using rule 8 (statement -> loop END_LINE .)
+    COMMENT         reduce using rule 8 (statement -> loop END_LINE .)
+    MINUS_OP        reduce using rule 8 (statement -> loop END_LINE .)
+    LOGICAL_OP_NOT  reduce using rule 8 (statement -> loop END_LINE .)
+    LPAREN          reduce using rule 8 (statement -> loop END_LINE .)
+    NUMBER_INTEGER  reduce using rule 8 (statement -> loop END_LINE .)
+    NUMBER_FLOAT    reduce using rule 8 (statement -> loop END_LINE .)
+    TRUE            reduce using rule 8 (statement -> loop END_LINE .)
+    FALSE           reduce using rule 8 (statement -> loop END_LINE .)
+    NULL            reduce using rule 8 (statement -> loop END_LINE .)
+    TEXT_STRING     reduce using rule 8 (statement -> loop END_LINE .)
+    TEXT_CHAR       reduce using rule 8 (statement -> loop END_LINE .)
+    $end            reduce using rule 8 (statement -> loop END_LINE .)
+    CONDITIONAL2    reduce using rule 8 (statement -> loop END_LINE .)
+    END_LINE        reduce using rule 8 (statement -> loop END_LINE .)
+
+
+state 44
 
     (9) statement -> return_statement END_LINE .
 
@@ -1108,9 +1131,10 @@ state 42
     TEXT_CHAR       reduce using rule 9 (statement -> return_statement END_LINE .)
     $end            reduce using rule 9 (statement -> return_statement END_LINE .)
     CONDITIONAL2    reduce using rule 9 (statement -> return_statement END_LINE .)
+    END_LINE        reduce using rule 9 (statement -> return_statement END_LINE .)
 
 
-state 43
+state 45
 
     (10) statement -> break_statement END_LINE .
 
@@ -1138,9 +1162,10 @@ state 43
     TEXT_CHAR       reduce using rule 10 (statement -> break_statement END_LINE .)
     $end            reduce using rule 10 (statement -> break_statement END_LINE .)
     CONDITIONAL2    reduce using rule 10 (statement -> break_statement END_LINE .)
+    END_LINE        reduce using rule 10 (statement -> break_statement END_LINE .)
 
 
-state 44
+state 46
 
     (15) binary_expression -> primary_expression PLUS_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1157,17 +1182,17 @@ state 44
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 73
+    primary_expression             shift and go to state 75
     term                           shift and go to state 30
 
-state 45
+state 47
 
     (16) binary_expression -> primary_expression MINUS_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1184,17 +1209,17 @@ state 45
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 74
+    primary_expression             shift and go to state 76
     term                           shift and go to state 30
 
-state 46
+state 48
 
     (17) binary_expression -> primary_expression MUL_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1211,17 +1236,17 @@ state 46
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 75
+    primary_expression             shift and go to state 77
     term                           shift and go to state 30
 
-state 47
+state 49
 
     (18) binary_expression -> primary_expression DIV_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1238,17 +1263,17 @@ state 47
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 76
+    primary_expression             shift and go to state 78
     term                           shift and go to state 30
 
-state 48
+state 50
 
     (19) binary_expression -> primary_expression LESS_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1265,17 +1290,17 @@ state 48
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 77
+    primary_expression             shift and go to state 79
     term                           shift and go to state 30
 
-state 49
+state 51
 
     (20) binary_expression -> primary_expression GREATER_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1292,17 +1317,17 @@ state 49
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 78
+    primary_expression             shift and go to state 80
     term                           shift and go to state 30
 
-state 50
+state 52
 
     (21) binary_expression -> primary_expression LESS_EQUAL_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1319,17 +1344,17 @@ state 50
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 79
+    primary_expression             shift and go to state 81
     term                           shift and go to state 30
 
-state 51
+state 53
 
     (22) binary_expression -> primary_expression GREATER_EQUAL_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1346,17 +1371,17 @@ state 51
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 80
+    primary_expression             shift and go to state 82
     term                           shift and go to state 30
 
-state 52
+state 54
 
     (23) binary_expression -> primary_expression EQUAL_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1373,17 +1398,17 @@ state 52
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 81
+    primary_expression             shift and go to state 83
     term                           shift and go to state 30
 
-state 53
+state 55
 
     (24) binary_expression -> primary_expression DIFFERENT_OP . primary_expression
     (27) primary_expression -> . LPAREN expression RPAREN
@@ -1400,17 +1425,17 @@ state 53
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    primary_expression             shift and go to state 82
+    primary_expression             shift and go to state 84
     term                           shift and go to state 30
 
-state 54
+state 56
 
     (37) assignment -> VARIABLE ASSIGNMENT_OP . expression
     (12) expression -> . binary_expression
@@ -1444,100 +1469,100 @@ state 54
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    expression                     shift and go to state 83
+    expression                     shift and go to state 85
     binary_expression              shift and go to state 12
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 55
+state 57
 
     (38) declaration -> TYPE_BOOLEAN VARIABLE .
     (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
     END_LINE        reduce using rule 38 (declaration -> TYPE_BOOLEAN VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 54
+    ASSIGNMENT_OP   shift and go to state 56
 
 
-state 56
+state 58
 
     (43) declaration -> TYPE_BOOLEAN assignment .
 
     END_LINE        reduce using rule 43 (declaration -> TYPE_BOOLEAN assignment .)
 
 
-state 57
+state 59
 
     (39) declaration -> TYPE_STRING VARIABLE .
     (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
     END_LINE        reduce using rule 39 (declaration -> TYPE_STRING VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 54
+    ASSIGNMENT_OP   shift and go to state 56
 
 
-state 58
+state 60
 
     (44) declaration -> TYPE_STRING assignment .
 
     END_LINE        reduce using rule 44 (declaration -> TYPE_STRING assignment .)
 
 
-state 59
+state 61
 
     (40) declaration -> TYPE_CHAR VARIABLE .
     (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
     END_LINE        reduce using rule 40 (declaration -> TYPE_CHAR VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 54
+    ASSIGNMENT_OP   shift and go to state 56
 
 
-state 60
+state 62
 
     (45) declaration -> TYPE_CHAR assignment .
 
     END_LINE        reduce using rule 45 (declaration -> TYPE_CHAR assignment .)
 
 
-state 61
+state 63
 
     (41) declaration -> TYPE_INTEGER VARIABLE .
     (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
     END_LINE        reduce using rule 41 (declaration -> TYPE_INTEGER VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 54
+    ASSIGNMENT_OP   shift and go to state 56
 
 
-state 62
+state 64
 
     (46) declaration -> TYPE_INTEGER assignment .
 
     END_LINE        reduce using rule 46 (declaration -> TYPE_INTEGER assignment .)
 
 
-state 63
+state 65
 
     (42) declaration -> TYPE_FLOAT VARIABLE .
     (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
     END_LINE        reduce using rule 42 (declaration -> TYPE_FLOAT VARIABLE .)
-    ASSIGNMENT_OP   shift and go to state 54
+    ASSIGNMENT_OP   shift and go to state 56
 
 
-state 64
+state 66
 
     (47) declaration -> TYPE_FLOAT assignment .
 
     END_LINE        reduce using rule 47 (declaration -> TYPE_FLOAT assignment .)
 
 
-state 65
+state 67
 
     (48) conditional -> CONDITIONAL1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list
     (49) conditional -> CONDITIONAL1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
@@ -1572,27 +1597,27 @@ state 65
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    expression                     shift and go to state 84
+    expression                     shift and go to state 86
     binary_expression              shift and go to state 12
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 66
+state 68
 
     (27) primary_expression -> LPAREN expression . RPAREN
 
-    RPAREN          shift and go to state 85
+    RPAREN          shift and go to state 87
 
 
-state 67
+state 69
 
     (31) term -> VARIABLE .
 
@@ -1611,7 +1636,7 @@ state 67
     SEPARATION      reduce using rule 31 (term -> VARIABLE .)
 
 
-state 68
+state 70
 
     (50) loop -> LOOP1 LPAREN . expression RPAREN STRUCTURE_BODY statement_list
     (12) expression -> . binary_expression
@@ -1645,36 +1670,36 @@ state 68
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    expression                     shift and go to state 86
+    expression                     shift and go to state 88
     binary_expression              shift and go to state 12
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 69
+state 71
 
     (51) loop -> LOOP2 LPAREN . assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 88
+    VARIABLE        shift and go to state 90
 
-    assignment                     shift and go to state 87
+    assignment                     shift and go to state 89
 
-state 70
+state 72
 
     (52) return_statement -> RETURN expression .
 
     END_LINE        reduce using rule 52 (return_statement -> RETURN expression .)
 
 
-state 71
+state 73
 
     (25) unitary_expression -> MINUS_OP primary_expression .
 
@@ -1683,7 +1708,7 @@ state 71
     SEPARATION      reduce using rule 25 (unitary_expression -> MINUS_OP primary_expression .)
 
 
-state 72
+state 74
 
     (26) unitary_expression -> LOGICAL_OP_NOT primary_expression .
 
@@ -1692,7 +1717,7 @@ state 72
     SEPARATION      reduce using rule 26 (unitary_expression -> LOGICAL_OP_NOT primary_expression .)
 
 
-state 73
+state 75
 
     (15) binary_expression -> primary_expression PLUS_OP primary_expression .
 
@@ -1701,7 +1726,7 @@ state 73
     SEPARATION      reduce using rule 15 (binary_expression -> primary_expression PLUS_OP primary_expression .)
 
 
-state 74
+state 76
 
     (16) binary_expression -> primary_expression MINUS_OP primary_expression .
 
@@ -1710,7 +1735,7 @@ state 74
     SEPARATION      reduce using rule 16 (binary_expression -> primary_expression MINUS_OP primary_expression .)
 
 
-state 75
+state 77
 
     (17) binary_expression -> primary_expression MUL_OP primary_expression .
 
@@ -1719,7 +1744,7 @@ state 75
     SEPARATION      reduce using rule 17 (binary_expression -> primary_expression MUL_OP primary_expression .)
 
 
-state 76
+state 78
 
     (18) binary_expression -> primary_expression DIV_OP primary_expression .
 
@@ -1728,7 +1753,7 @@ state 76
     SEPARATION      reduce using rule 18 (binary_expression -> primary_expression DIV_OP primary_expression .)
 
 
-state 77
+state 79
 
     (19) binary_expression -> primary_expression LESS_OP primary_expression .
 
@@ -1737,7 +1762,7 @@ state 77
     SEPARATION      reduce using rule 19 (binary_expression -> primary_expression LESS_OP primary_expression .)
 
 
-state 78
+state 80
 
     (20) binary_expression -> primary_expression GREATER_OP primary_expression .
 
@@ -1746,7 +1771,7 @@ state 78
     SEPARATION      reduce using rule 20 (binary_expression -> primary_expression GREATER_OP primary_expression .)
 
 
-state 79
+state 81
 
     (21) binary_expression -> primary_expression LESS_EQUAL_OP primary_expression .
 
@@ -1755,7 +1780,7 @@ state 79
     SEPARATION      reduce using rule 21 (binary_expression -> primary_expression LESS_EQUAL_OP primary_expression .)
 
 
-state 80
+state 82
 
     (22) binary_expression -> primary_expression GREATER_EQUAL_OP primary_expression .
 
@@ -1764,7 +1789,7 @@ state 80
     SEPARATION      reduce using rule 22 (binary_expression -> primary_expression GREATER_EQUAL_OP primary_expression .)
 
 
-state 81
+state 83
 
     (23) binary_expression -> primary_expression EQUAL_OP primary_expression .
 
@@ -1773,7 +1798,7 @@ state 81
     SEPARATION      reduce using rule 23 (binary_expression -> primary_expression EQUAL_OP primary_expression .)
 
 
-state 82
+state 84
 
     (24) binary_expression -> primary_expression DIFFERENT_OP primary_expression .
 
@@ -1782,7 +1807,7 @@ state 82
     SEPARATION      reduce using rule 24 (binary_expression -> primary_expression DIFFERENT_OP primary_expression .)
 
 
-state 83
+state 85
 
     (37) assignment -> VARIABLE ASSIGNMENT_OP expression .
 
@@ -1791,15 +1816,15 @@ state 83
     RPAREN          reduce using rule 37 (assignment -> VARIABLE ASSIGNMENT_OP expression .)
 
 
-state 84
+state 86
 
     (48) conditional -> CONDITIONAL1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list
     (49) conditional -> CONDITIONAL1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
 
-    RPAREN          shift and go to state 89
+    RPAREN          shift and go to state 91
 
 
-state 85
+state 87
 
     (27) primary_expression -> LPAREN expression RPAREN .
 
@@ -1818,43 +1843,43 @@ state 85
     SEPARATION      reduce using rule 27 (primary_expression -> LPAREN expression RPAREN .)
 
 
-state 86
+state 88
 
     (50) loop -> LOOP1 LPAREN expression . RPAREN STRUCTURE_BODY statement_list
 
-    RPAREN          shift and go to state 90
-
-
-state 87
-
-    (51) loop -> LOOP2 LPAREN assignment . SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
-
-    SEPARATION      shift and go to state 91
-
-
-state 88
-
-    (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
-
-    ASSIGNMENT_OP   shift and go to state 54
+    RPAREN          shift and go to state 92
 
 
 state 89
 
-    (48) conditional -> CONDITIONAL1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list
-    (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
+    (51) loop -> LOOP2 LPAREN assignment . SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
 
-    STRUCTURE_BODY  shift and go to state 92
+    SEPARATION      shift and go to state 93
 
 
 state 90
 
-    (50) loop -> LOOP1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list
+    (37) assignment -> VARIABLE . ASSIGNMENT_OP expression
 
-    STRUCTURE_BODY  shift and go to state 93
+    ASSIGNMENT_OP   shift and go to state 56
 
 
 state 91
+
+    (48) conditional -> CONDITIONAL1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list
+    (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
+
+    STRUCTURE_BODY  shift and go to state 94
+
+
+state 92
+
+    (50) loop -> LOOP1 LPAREN expression RPAREN . STRUCTURE_BODY statement_list
+
+    STRUCTURE_BODY  shift and go to state 95
+
+
+state 93
 
     (51) loop -> LOOP2 LPAREN assignment SEPARATION . expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
     (12) expression -> . binary_expression
@@ -1888,20 +1913,20 @@ state 91
     LPAREN          shift and go to state 22
     NUMBER_INTEGER  shift and go to state 31
     NUMBER_FLOAT    shift and go to state 32
-    VARIABLE        shift and go to state 67
+    VARIABLE        shift and go to state 69
     TRUE            shift and go to state 33
     FALSE           shift and go to state 34
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-    expression                     shift and go to state 94
+    expression                     shift and go to state 96
     binary_expression              shift and go to state 12
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 92
+state 94
 
     (48) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY . statement_list
     (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY . statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
@@ -1910,8 +1935,8 @@ state 92
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -1984,7 +2009,7 @@ state 92
     TEXT_CHAR       shift and go to state 37
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 95
+    statement_list                 shift and go to state 97
     statement                      shift and go to state 3
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
@@ -1998,7 +2023,7 @@ state 92
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 93
+state 95
 
     (50) loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY . statement_list
     (2) statement_list -> . statement_list statement
@@ -2006,8 +2031,8 @@ state 93
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -2080,159 +2105,8 @@ state 93
     TEXT_CHAR       shift and go to state 37
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 96
+    statement_list                 shift and go to state 98
     statement                      shift and go to state 3
-    assignment                     shift and go to state 5
-    declaration                    shift and go to state 6
-    conditional                    shift and go to state 7
-    loop                           shift and go to state 8
-    return_statement               shift and go to state 9
-    break_statement                shift and go to state 10
-    comment                        shift and go to state 11
-    binary_expression              shift and go to state 12
-    unitary_expression             shift and go to state 13
-    primary_expression             shift and go to state 14
-    term                           shift and go to state 30
-
-state 94
-
-    (51) loop -> LOOP2 LPAREN assignment SEPARATION expression . SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
-
-    SEPARATION      shift and go to state 97
-
-
-state 95
-
-    (48) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .
-    (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list . CONDITIONAL2 STRUCTURE_BODY statement_list
-    (2) statement_list -> statement_list . statement
-    (4) statement -> . expression END_LINE
-    (5) statement -> . assignment END_LINE
-    (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
-    (9) statement -> . return_statement END_LINE
-    (10) statement -> . break_statement END_LINE
-    (11) statement -> . comment
-    (12) expression -> . binary_expression
-    (13) expression -> . unitary_expression
-    (14) expression -> . primary_expression
-    (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (38) declaration -> . TYPE_BOOLEAN VARIABLE
-    (39) declaration -> . TYPE_STRING VARIABLE
-    (40) declaration -> . TYPE_CHAR VARIABLE
-    (41) declaration -> . TYPE_INTEGER VARIABLE
-    (42) declaration -> . TYPE_FLOAT VARIABLE
-    (43) declaration -> . TYPE_BOOLEAN assignment
-    (44) declaration -> . TYPE_STRING assignment
-    (45) declaration -> . TYPE_CHAR assignment
-    (46) declaration -> . TYPE_INTEGER assignment
-    (47) declaration -> . TYPE_FLOAT assignment
-    (48) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
-    (49) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
-    (50) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
-    (51) loop -> . LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
-    (52) return_statement -> . RETURN expression
-    (53) return_statement -> . RETURN
-    (54) break_statement -> . BREAK
-    (55) comment -> . COMMENT
-    (15) binary_expression -> . primary_expression PLUS_OP primary_expression
-    (16) binary_expression -> . primary_expression MINUS_OP primary_expression
-    (17) binary_expression -> . primary_expression MUL_OP primary_expression
-    (18) binary_expression -> . primary_expression DIV_OP primary_expression
-    (19) binary_expression -> . primary_expression LESS_OP primary_expression
-    (20) binary_expression -> . primary_expression GREATER_OP primary_expression
-    (21) binary_expression -> . primary_expression LESS_EQUAL_OP primary_expression
-    (22) binary_expression -> . primary_expression GREATER_EQUAL_OP primary_expression
-    (23) binary_expression -> . primary_expression EQUAL_OP primary_expression
-    (24) binary_expression -> . primary_expression DIFFERENT_OP primary_expression
-    (25) unitary_expression -> . MINUS_OP primary_expression
-    (26) unitary_expression -> . LOGICAL_OP_NOT primary_expression
-    (27) primary_expression -> . LPAREN expression RPAREN
-    (28) primary_expression -> . term
-    (29) term -> . NUMBER_INTEGER
-    (30) term -> . NUMBER_FLOAT
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-    (35) term -> . TEXT_STRING
-    (36) term -> . TEXT_CHAR
-
-  ! shift/reduce conflict for CONDITIONAL2 resolved as shift
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for TYPE_BOOLEAN resolved as shift
-  ! shift/reduce conflict for TYPE_STRING resolved as shift
-  ! shift/reduce conflict for TYPE_CHAR resolved as shift
-  ! shift/reduce conflict for TYPE_INTEGER resolved as shift
-  ! shift/reduce conflict for TYPE_FLOAT resolved as shift
-  ! shift/reduce conflict for CONDITIONAL1 resolved as shift
-  ! shift/reduce conflict for LOOP1 resolved as shift
-  ! shift/reduce conflict for LOOP2 resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for BREAK resolved as shift
-  ! shift/reduce conflict for COMMENT resolved as shift
-  ! shift/reduce conflict for MINUS_OP resolved as shift
-  ! shift/reduce conflict for LOGICAL_OP_NOT resolved as shift
-  ! shift/reduce conflict for LPAREN resolved as shift
-  ! shift/reduce conflict for NUMBER_INTEGER resolved as shift
-  ! shift/reduce conflict for NUMBER_FLOAT resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-  ! shift/reduce conflict for NULL resolved as shift
-  ! shift/reduce conflict for TEXT_STRING resolved as shift
-  ! shift/reduce conflict for TEXT_CHAR resolved as shift
-    $end            reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .)
-    CONDITIONAL2    shift and go to state 98
-    VARIABLE        shift and go to state 15
-    TYPE_BOOLEAN    shift and go to state 16
-    TYPE_STRING     shift and go to state 17
-    TYPE_CHAR       shift and go to state 18
-    TYPE_INTEGER    shift and go to state 19
-    TYPE_FLOAT      shift and go to state 20
-    CONDITIONAL1    shift and go to state 21
-    LOOP1           shift and go to state 23
-    LOOP2           shift and go to state 24
-    RETURN          shift and go to state 25
-    BREAK           shift and go to state 26
-    COMMENT         shift and go to state 27
-    MINUS_OP        shift and go to state 28
-    LOGICAL_OP_NOT  shift and go to state 29
-    LPAREN          shift and go to state 22
-    NUMBER_INTEGER  shift and go to state 31
-    NUMBER_FLOAT    shift and go to state 32
-    TRUE            shift and go to state 33
-    FALSE           shift and go to state 34
-    NULL            shift and go to state 35
-    TEXT_STRING     shift and go to state 36
-    TEXT_CHAR       shift and go to state 37
-
-  ! VARIABLE        [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_BOOLEAN    [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_STRING     [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_CHAR       [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_INTEGER    [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_FLOAT      [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! CONDITIONAL1    [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOOP1           [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOOP2           [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! RETURN          [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! BREAK           [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! COMMENT         [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! MINUS_OP        [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOGICAL_OP_NOT  [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LPAREN          [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_INTEGER  [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_FLOAT    [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TRUE            [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! FALSE           [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NULL            [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TEXT_STRING     [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TEXT_CHAR       [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! CONDITIONAL2    [ reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-
-    expression                     shift and go to state 4
-    statement                      shift and go to state 38
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
     conditional                    shift and go to state 7
@@ -2247,13 +2121,21 @@ state 95
 
 state 96
 
-    (50) loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .
+    (51) loop -> LOOP2 LPAREN assignment SEPARATION expression . SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
+
+    SEPARATION      shift and go to state 99
+
+
+state 97
+
+    (48) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .
+    (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list . CONDITIONAL2 STRUCTURE_BODY statement_list
     (2) statement_list -> statement_list . statement
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -2302,30 +2184,8 @@ state 96
     (35) term -> . TEXT_STRING
     (36) term -> . TEXT_CHAR
 
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for TYPE_BOOLEAN resolved as shift
-  ! shift/reduce conflict for TYPE_STRING resolved as shift
-  ! shift/reduce conflict for TYPE_CHAR resolved as shift
-  ! shift/reduce conflict for TYPE_INTEGER resolved as shift
-  ! shift/reduce conflict for TYPE_FLOAT resolved as shift
-  ! shift/reduce conflict for CONDITIONAL1 resolved as shift
-  ! shift/reduce conflict for LOOP1 resolved as shift
-  ! shift/reduce conflict for LOOP2 resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for BREAK resolved as shift
-  ! shift/reduce conflict for COMMENT resolved as shift
-  ! shift/reduce conflict for MINUS_OP resolved as shift
-  ! shift/reduce conflict for LOGICAL_OP_NOT resolved as shift
-  ! shift/reduce conflict for LPAREN resolved as shift
-  ! shift/reduce conflict for NUMBER_INTEGER resolved as shift
-  ! shift/reduce conflict for NUMBER_FLOAT resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-  ! shift/reduce conflict for NULL resolved as shift
-  ! shift/reduce conflict for TEXT_STRING resolved as shift
-  ! shift/reduce conflict for TEXT_CHAR resolved as shift
-    $end            reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .)
-    CONDITIONAL2    reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .)
+    END_LINE        reduce using rule 48 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .)
+    CONDITIONAL2    shift and go to state 100
     VARIABLE        shift and go to state 15
     TYPE_BOOLEAN    shift and go to state 16
     TYPE_STRING     shift and go to state 17
@@ -2349,28 +2209,100 @@ state 96
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
 
-  ! VARIABLE        [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_BOOLEAN    [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_STRING     [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_CHAR       [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_INTEGER    [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_FLOAT      [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! CONDITIONAL1    [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOOP1           [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOOP2           [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! RETURN          [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! BREAK           [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! COMMENT         [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! MINUS_OP        [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOGICAL_OP_NOT  [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LPAREN          [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_INTEGER  [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_FLOAT    [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TRUE            [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! FALSE           [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NULL            [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TEXT_STRING     [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TEXT_CHAR       [ reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .) ]
+    expression                     shift and go to state 4
+    statement                      shift and go to state 38
+    assignment                     shift and go to state 5
+    declaration                    shift and go to state 6
+    conditional                    shift and go to state 7
+    loop                           shift and go to state 8
+    return_statement               shift and go to state 9
+    break_statement                shift and go to state 10
+    comment                        shift and go to state 11
+    binary_expression              shift and go to state 12
+    unitary_expression             shift and go to state 13
+    primary_expression             shift and go to state 14
+    term                           shift and go to state 30
+
+state 98
+
+    (50) loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . expression END_LINE
+    (5) statement -> . assignment END_LINE
+    (6) statement -> . declaration END_LINE
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
+    (9) statement -> . return_statement END_LINE
+    (10) statement -> . break_statement END_LINE
+    (11) statement -> . comment
+    (12) expression -> . binary_expression
+    (13) expression -> . unitary_expression
+    (14) expression -> . primary_expression
+    (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
+    (38) declaration -> . TYPE_BOOLEAN VARIABLE
+    (39) declaration -> . TYPE_STRING VARIABLE
+    (40) declaration -> . TYPE_CHAR VARIABLE
+    (41) declaration -> . TYPE_INTEGER VARIABLE
+    (42) declaration -> . TYPE_FLOAT VARIABLE
+    (43) declaration -> . TYPE_BOOLEAN assignment
+    (44) declaration -> . TYPE_STRING assignment
+    (45) declaration -> . TYPE_CHAR assignment
+    (46) declaration -> . TYPE_INTEGER assignment
+    (47) declaration -> . TYPE_FLOAT assignment
+    (48) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
+    (49) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
+    (50) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
+    (51) loop -> . LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
+    (52) return_statement -> . RETURN expression
+    (53) return_statement -> . RETURN
+    (54) break_statement -> . BREAK
+    (55) comment -> . COMMENT
+    (15) binary_expression -> . primary_expression PLUS_OP primary_expression
+    (16) binary_expression -> . primary_expression MINUS_OP primary_expression
+    (17) binary_expression -> . primary_expression MUL_OP primary_expression
+    (18) binary_expression -> . primary_expression DIV_OP primary_expression
+    (19) binary_expression -> . primary_expression LESS_OP primary_expression
+    (20) binary_expression -> . primary_expression GREATER_OP primary_expression
+    (21) binary_expression -> . primary_expression LESS_EQUAL_OP primary_expression
+    (22) binary_expression -> . primary_expression GREATER_EQUAL_OP primary_expression
+    (23) binary_expression -> . primary_expression EQUAL_OP primary_expression
+    (24) binary_expression -> . primary_expression DIFFERENT_OP primary_expression
+    (25) unitary_expression -> . MINUS_OP primary_expression
+    (26) unitary_expression -> . LOGICAL_OP_NOT primary_expression
+    (27) primary_expression -> . LPAREN expression RPAREN
+    (28) primary_expression -> . term
+    (29) term -> . NUMBER_INTEGER
+    (30) term -> . NUMBER_FLOAT
+    (31) term -> . VARIABLE
+    (32) term -> . TRUE
+    (33) term -> . FALSE
+    (34) term -> . NULL
+    (35) term -> . TEXT_STRING
+    (36) term -> . TEXT_CHAR
+
+    END_LINE        reduce using rule 50 (loop -> LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list .)
+    VARIABLE        shift and go to state 15
+    TYPE_BOOLEAN    shift and go to state 16
+    TYPE_STRING     shift and go to state 17
+    TYPE_CHAR       shift and go to state 18
+    TYPE_INTEGER    shift and go to state 19
+    TYPE_FLOAT      shift and go to state 20
+    CONDITIONAL1    shift and go to state 21
+    LOOP1           shift and go to state 23
+    LOOP2           shift and go to state 24
+    RETURN          shift and go to state 25
+    BREAK           shift and go to state 26
+    COMMENT         shift and go to state 27
+    MINUS_OP        shift and go to state 28
+    LOGICAL_OP_NOT  shift and go to state 29
+    LPAREN          shift and go to state 22
+    NUMBER_INTEGER  shift and go to state 31
+    NUMBER_FLOAT    shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
+    NULL            shift and go to state 35
+    TEXT_STRING     shift and go to state 36
+    TEXT_CHAR       shift and go to state 37
 
     expression                     shift and go to state 4
     statement                      shift and go to state 38
@@ -2386,30 +2318,30 @@ state 96
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 97
+state 99
 
     (51) loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION . assignment RPAREN STRUCTURE_BODY statement_list
     (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
 
-    VARIABLE        shift and go to state 88
+    VARIABLE        shift and go to state 90
 
-    assignment                     shift and go to state 99
+    assignment                     shift and go to state 101
 
-state 98
+state 100
 
     (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 . STRUCTURE_BODY statement_list
 
-    STRUCTURE_BODY  shift and go to state 100
+    STRUCTURE_BODY  shift and go to state 102
 
 
-state 99
+state 101
 
     (51) loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment . RPAREN STRUCTURE_BODY statement_list
 
-    RPAREN          shift and go to state 101
+    RPAREN          shift and go to state 103
 
 
-state 100
+state 102
 
     (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY . statement_list
     (2) statement_list -> . statement_list statement
@@ -2417,8 +2349,8 @@ state 100
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -2491,156 +2423,8 @@ state 100
     TEXT_CHAR       shift and go to state 37
 
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 102
+    statement_list                 shift and go to state 104
     statement                      shift and go to state 3
-    assignment                     shift and go to state 5
-    declaration                    shift and go to state 6
-    conditional                    shift and go to state 7
-    loop                           shift and go to state 8
-    return_statement               shift and go to state 9
-    break_statement                shift and go to state 10
-    comment                        shift and go to state 11
-    binary_expression              shift and go to state 12
-    unitary_expression             shift and go to state 13
-    primary_expression             shift and go to state 14
-    term                           shift and go to state 30
-
-state 101
-
-    (51) loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN . STRUCTURE_BODY statement_list
-
-    STRUCTURE_BODY  shift and go to state 103
-
-
-state 102
-
-    (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .
-    (2) statement_list -> statement_list . statement
-    (4) statement -> . expression END_LINE
-    (5) statement -> . assignment END_LINE
-    (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
-    (9) statement -> . return_statement END_LINE
-    (10) statement -> . break_statement END_LINE
-    (11) statement -> . comment
-    (12) expression -> . binary_expression
-    (13) expression -> . unitary_expression
-    (14) expression -> . primary_expression
-    (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
-    (38) declaration -> . TYPE_BOOLEAN VARIABLE
-    (39) declaration -> . TYPE_STRING VARIABLE
-    (40) declaration -> . TYPE_CHAR VARIABLE
-    (41) declaration -> . TYPE_INTEGER VARIABLE
-    (42) declaration -> . TYPE_FLOAT VARIABLE
-    (43) declaration -> . TYPE_BOOLEAN assignment
-    (44) declaration -> . TYPE_STRING assignment
-    (45) declaration -> . TYPE_CHAR assignment
-    (46) declaration -> . TYPE_INTEGER assignment
-    (47) declaration -> . TYPE_FLOAT assignment
-    (48) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
-    (49) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
-    (50) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
-    (51) loop -> . LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
-    (52) return_statement -> . RETURN expression
-    (53) return_statement -> . RETURN
-    (54) break_statement -> . BREAK
-    (55) comment -> . COMMENT
-    (15) binary_expression -> . primary_expression PLUS_OP primary_expression
-    (16) binary_expression -> . primary_expression MINUS_OP primary_expression
-    (17) binary_expression -> . primary_expression MUL_OP primary_expression
-    (18) binary_expression -> . primary_expression DIV_OP primary_expression
-    (19) binary_expression -> . primary_expression LESS_OP primary_expression
-    (20) binary_expression -> . primary_expression GREATER_OP primary_expression
-    (21) binary_expression -> . primary_expression LESS_EQUAL_OP primary_expression
-    (22) binary_expression -> . primary_expression GREATER_EQUAL_OP primary_expression
-    (23) binary_expression -> . primary_expression EQUAL_OP primary_expression
-    (24) binary_expression -> . primary_expression DIFFERENT_OP primary_expression
-    (25) unitary_expression -> . MINUS_OP primary_expression
-    (26) unitary_expression -> . LOGICAL_OP_NOT primary_expression
-    (27) primary_expression -> . LPAREN expression RPAREN
-    (28) primary_expression -> . term
-    (29) term -> . NUMBER_INTEGER
-    (30) term -> . NUMBER_FLOAT
-    (31) term -> . VARIABLE
-    (32) term -> . TRUE
-    (33) term -> . FALSE
-    (34) term -> . NULL
-    (35) term -> . TEXT_STRING
-    (36) term -> . TEXT_CHAR
-
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for TYPE_BOOLEAN resolved as shift
-  ! shift/reduce conflict for TYPE_STRING resolved as shift
-  ! shift/reduce conflict for TYPE_CHAR resolved as shift
-  ! shift/reduce conflict for TYPE_INTEGER resolved as shift
-  ! shift/reduce conflict for TYPE_FLOAT resolved as shift
-  ! shift/reduce conflict for CONDITIONAL1 resolved as shift
-  ! shift/reduce conflict for LOOP1 resolved as shift
-  ! shift/reduce conflict for LOOP2 resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for BREAK resolved as shift
-  ! shift/reduce conflict for COMMENT resolved as shift
-  ! shift/reduce conflict for MINUS_OP resolved as shift
-  ! shift/reduce conflict for LOGICAL_OP_NOT resolved as shift
-  ! shift/reduce conflict for LPAREN resolved as shift
-  ! shift/reduce conflict for NUMBER_INTEGER resolved as shift
-  ! shift/reduce conflict for NUMBER_FLOAT resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-  ! shift/reduce conflict for NULL resolved as shift
-  ! shift/reduce conflict for TEXT_STRING resolved as shift
-  ! shift/reduce conflict for TEXT_CHAR resolved as shift
-    $end            reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .)
-    CONDITIONAL2    reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .)
-    VARIABLE        shift and go to state 15
-    TYPE_BOOLEAN    shift and go to state 16
-    TYPE_STRING     shift and go to state 17
-    TYPE_CHAR       shift and go to state 18
-    TYPE_INTEGER    shift and go to state 19
-    TYPE_FLOAT      shift and go to state 20
-    CONDITIONAL1    shift and go to state 21
-    LOOP1           shift and go to state 23
-    LOOP2           shift and go to state 24
-    RETURN          shift and go to state 25
-    BREAK           shift and go to state 26
-    COMMENT         shift and go to state 27
-    MINUS_OP        shift and go to state 28
-    LOGICAL_OP_NOT  shift and go to state 29
-    LPAREN          shift and go to state 22
-    NUMBER_INTEGER  shift and go to state 31
-    NUMBER_FLOAT    shift and go to state 32
-    TRUE            shift and go to state 33
-    FALSE           shift and go to state 34
-    NULL            shift and go to state 35
-    TEXT_STRING     shift and go to state 36
-    TEXT_CHAR       shift and go to state 37
-
-  ! VARIABLE        [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TYPE_BOOLEAN    [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TYPE_STRING     [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TYPE_CHAR       [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TYPE_INTEGER    [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TYPE_FLOAT      [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! CONDITIONAL1    [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! LOOP1           [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! LOOP2           [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! RETURN          [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! BREAK           [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! COMMENT         [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! MINUS_OP        [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! LOGICAL_OP_NOT  [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! LPAREN          [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_INTEGER  [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_FLOAT    [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TRUE            [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! FALSE           [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! NULL            [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TEXT_STRING     [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-  ! TEXT_CHAR       [ reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .) ]
-
-    expression                     shift and go to state 4
-    statement                      shift and go to state 38
     assignment                     shift and go to state 5
     declaration                    shift and go to state 6
     conditional                    shift and go to state 7
@@ -2655,14 +2439,116 @@ state 102
 
 state 103
 
+    (51) loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN . STRUCTURE_BODY statement_list
+
+    STRUCTURE_BODY  shift and go to state 105
+
+
+state 104
+
+    (49) conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . expression END_LINE
+    (5) statement -> . assignment END_LINE
+    (6) statement -> . declaration END_LINE
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
+    (9) statement -> . return_statement END_LINE
+    (10) statement -> . break_statement END_LINE
+    (11) statement -> . comment
+    (12) expression -> . binary_expression
+    (13) expression -> . unitary_expression
+    (14) expression -> . primary_expression
+    (37) assignment -> . VARIABLE ASSIGNMENT_OP expression
+    (38) declaration -> . TYPE_BOOLEAN VARIABLE
+    (39) declaration -> . TYPE_STRING VARIABLE
+    (40) declaration -> . TYPE_CHAR VARIABLE
+    (41) declaration -> . TYPE_INTEGER VARIABLE
+    (42) declaration -> . TYPE_FLOAT VARIABLE
+    (43) declaration -> . TYPE_BOOLEAN assignment
+    (44) declaration -> . TYPE_STRING assignment
+    (45) declaration -> . TYPE_CHAR assignment
+    (46) declaration -> . TYPE_INTEGER assignment
+    (47) declaration -> . TYPE_FLOAT assignment
+    (48) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
+    (49) conditional -> . CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
+    (50) loop -> . LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
+    (51) loop -> . LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list
+    (52) return_statement -> . RETURN expression
+    (53) return_statement -> . RETURN
+    (54) break_statement -> . BREAK
+    (55) comment -> . COMMENT
+    (15) binary_expression -> . primary_expression PLUS_OP primary_expression
+    (16) binary_expression -> . primary_expression MINUS_OP primary_expression
+    (17) binary_expression -> . primary_expression MUL_OP primary_expression
+    (18) binary_expression -> . primary_expression DIV_OP primary_expression
+    (19) binary_expression -> . primary_expression LESS_OP primary_expression
+    (20) binary_expression -> . primary_expression GREATER_OP primary_expression
+    (21) binary_expression -> . primary_expression LESS_EQUAL_OP primary_expression
+    (22) binary_expression -> . primary_expression GREATER_EQUAL_OP primary_expression
+    (23) binary_expression -> . primary_expression EQUAL_OP primary_expression
+    (24) binary_expression -> . primary_expression DIFFERENT_OP primary_expression
+    (25) unitary_expression -> . MINUS_OP primary_expression
+    (26) unitary_expression -> . LOGICAL_OP_NOT primary_expression
+    (27) primary_expression -> . LPAREN expression RPAREN
+    (28) primary_expression -> . term
+    (29) term -> . NUMBER_INTEGER
+    (30) term -> . NUMBER_FLOAT
+    (31) term -> . VARIABLE
+    (32) term -> . TRUE
+    (33) term -> . FALSE
+    (34) term -> . NULL
+    (35) term -> . TEXT_STRING
+    (36) term -> . TEXT_CHAR
+
+    END_LINE        reduce using rule 49 (conditional -> CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list .)
+    VARIABLE        shift and go to state 15
+    TYPE_BOOLEAN    shift and go to state 16
+    TYPE_STRING     shift and go to state 17
+    TYPE_CHAR       shift and go to state 18
+    TYPE_INTEGER    shift and go to state 19
+    TYPE_FLOAT      shift and go to state 20
+    CONDITIONAL1    shift and go to state 21
+    LOOP1           shift and go to state 23
+    LOOP2           shift and go to state 24
+    RETURN          shift and go to state 25
+    BREAK           shift and go to state 26
+    COMMENT         shift and go to state 27
+    MINUS_OP        shift and go to state 28
+    LOGICAL_OP_NOT  shift and go to state 29
+    LPAREN          shift and go to state 22
+    NUMBER_INTEGER  shift and go to state 31
+    NUMBER_FLOAT    shift and go to state 32
+    TRUE            shift and go to state 33
+    FALSE           shift and go to state 34
+    NULL            shift and go to state 35
+    TEXT_STRING     shift and go to state 36
+    TEXT_CHAR       shift and go to state 37
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 38
+    assignment                     shift and go to state 5
+    declaration                    shift and go to state 6
+    conditional                    shift and go to state 7
+    loop                           shift and go to state 8
+    return_statement               shift and go to state 9
+    break_statement                shift and go to state 10
+    comment                        shift and go to state 11
+    binary_expression              shift and go to state 12
+    unitary_expression             shift and go to state 13
+    primary_expression             shift and go to state 14
+    term                           shift and go to state 30
+
+state 105
+
     (51) loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY . statement_list
     (2) statement_list -> . statement_list statement
     (3) statement_list -> . statement
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -2736,7 +2622,7 @@ state 103
 
     assignment                     shift and go to state 5
     expression                     shift and go to state 4
-    statement_list                 shift and go to state 104
+    statement_list                 shift and go to state 106
     statement                      shift and go to state 3
     declaration                    shift and go to state 6
     conditional                    shift and go to state 7
@@ -2749,15 +2635,15 @@ state 103
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
 
-state 104
+state 106
 
     (51) loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .
     (2) statement_list -> statement_list . statement
     (4) statement -> . expression END_LINE
     (5) statement -> . assignment END_LINE
     (6) statement -> . declaration END_LINE
-    (7) statement -> . conditional
-    (8) statement -> . loop
+    (7) statement -> . conditional END_LINE
+    (8) statement -> . loop END_LINE
     (9) statement -> . return_statement END_LINE
     (10) statement -> . break_statement END_LINE
     (11) statement -> . comment
@@ -2806,30 +2692,7 @@ state 104
     (35) term -> . TEXT_STRING
     (36) term -> . TEXT_CHAR
 
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for TYPE_BOOLEAN resolved as shift
-  ! shift/reduce conflict for TYPE_STRING resolved as shift
-  ! shift/reduce conflict for TYPE_CHAR resolved as shift
-  ! shift/reduce conflict for TYPE_INTEGER resolved as shift
-  ! shift/reduce conflict for TYPE_FLOAT resolved as shift
-  ! shift/reduce conflict for CONDITIONAL1 resolved as shift
-  ! shift/reduce conflict for LOOP1 resolved as shift
-  ! shift/reduce conflict for LOOP2 resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for BREAK resolved as shift
-  ! shift/reduce conflict for COMMENT resolved as shift
-  ! shift/reduce conflict for MINUS_OP resolved as shift
-  ! shift/reduce conflict for LOGICAL_OP_NOT resolved as shift
-  ! shift/reduce conflict for LPAREN resolved as shift
-  ! shift/reduce conflict for NUMBER_INTEGER resolved as shift
-  ! shift/reduce conflict for NUMBER_FLOAT resolved as shift
-  ! shift/reduce conflict for TRUE resolved as shift
-  ! shift/reduce conflict for FALSE resolved as shift
-  ! shift/reduce conflict for NULL resolved as shift
-  ! shift/reduce conflict for TEXT_STRING resolved as shift
-  ! shift/reduce conflict for TEXT_CHAR resolved as shift
-    $end            reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .)
-    CONDITIONAL2    reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .)
+    END_LINE        reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .)
     VARIABLE        shift and go to state 15
     TYPE_BOOLEAN    shift and go to state 16
     TYPE_STRING     shift and go to state 17
@@ -2852,29 +2715,6 @@ state 104
     NULL            shift and go to state 35
     TEXT_STRING     shift and go to state 36
     TEXT_CHAR       shift and go to state 37
-
-  ! VARIABLE        [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_BOOLEAN    [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_STRING     [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_CHAR       [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_INTEGER    [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TYPE_FLOAT      [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! CONDITIONAL1    [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOOP1           [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOOP2           [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! RETURN          [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! BREAK           [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! COMMENT         [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! MINUS_OP        [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LOGICAL_OP_NOT  [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! LPAREN          [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_INTEGER  [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NUMBER_FLOAT    [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TRUE            [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! FALSE           [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! NULL            [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TEXT_STRING     [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
-  ! TEXT_CHAR       [ reduce using rule 51 (loop -> LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list .) ]
 
     assignment                     shift and go to state 5
     expression                     shift and go to state 4
@@ -2889,95 +2729,3 @@ state 104
     unitary_expression             shift and go to state 13
     primary_expression             shift and go to state 14
     term                           shift and go to state 30
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for CONDITIONAL2 in state 95 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 95 resolved as shift
-WARNING: shift/reduce conflict for TYPE_BOOLEAN in state 95 resolved as shift
-WARNING: shift/reduce conflict for TYPE_STRING in state 95 resolved as shift
-WARNING: shift/reduce conflict for TYPE_CHAR in state 95 resolved as shift
-WARNING: shift/reduce conflict for TYPE_INTEGER in state 95 resolved as shift
-WARNING: shift/reduce conflict for TYPE_FLOAT in state 95 resolved as shift
-WARNING: shift/reduce conflict for CONDITIONAL1 in state 95 resolved as shift
-WARNING: shift/reduce conflict for LOOP1 in state 95 resolved as shift
-WARNING: shift/reduce conflict for LOOP2 in state 95 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 95 resolved as shift
-WARNING: shift/reduce conflict for BREAK in state 95 resolved as shift
-WARNING: shift/reduce conflict for COMMENT in state 95 resolved as shift
-WARNING: shift/reduce conflict for MINUS_OP in state 95 resolved as shift
-WARNING: shift/reduce conflict for LOGICAL_OP_NOT in state 95 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 95 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_INTEGER in state 95 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_FLOAT in state 95 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 95 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 95 resolved as shift
-WARNING: shift/reduce conflict for NULL in state 95 resolved as shift
-WARNING: shift/reduce conflict for TEXT_STRING in state 95 resolved as shift
-WARNING: shift/reduce conflict for TEXT_CHAR in state 95 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 96 resolved as shift
-WARNING: shift/reduce conflict for TYPE_BOOLEAN in state 96 resolved as shift
-WARNING: shift/reduce conflict for TYPE_STRING in state 96 resolved as shift
-WARNING: shift/reduce conflict for TYPE_CHAR in state 96 resolved as shift
-WARNING: shift/reduce conflict for TYPE_INTEGER in state 96 resolved as shift
-WARNING: shift/reduce conflict for TYPE_FLOAT in state 96 resolved as shift
-WARNING: shift/reduce conflict for CONDITIONAL1 in state 96 resolved as shift
-WARNING: shift/reduce conflict for LOOP1 in state 96 resolved as shift
-WARNING: shift/reduce conflict for LOOP2 in state 96 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 96 resolved as shift
-WARNING: shift/reduce conflict for BREAK in state 96 resolved as shift
-WARNING: shift/reduce conflict for COMMENT in state 96 resolved as shift
-WARNING: shift/reduce conflict for MINUS_OP in state 96 resolved as shift
-WARNING: shift/reduce conflict for LOGICAL_OP_NOT in state 96 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 96 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_INTEGER in state 96 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_FLOAT in state 96 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 96 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 96 resolved as shift
-WARNING: shift/reduce conflict for NULL in state 96 resolved as shift
-WARNING: shift/reduce conflict for TEXT_STRING in state 96 resolved as shift
-WARNING: shift/reduce conflict for TEXT_CHAR in state 96 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 102 resolved as shift
-WARNING: shift/reduce conflict for TYPE_BOOLEAN in state 102 resolved as shift
-WARNING: shift/reduce conflict for TYPE_STRING in state 102 resolved as shift
-WARNING: shift/reduce conflict for TYPE_CHAR in state 102 resolved as shift
-WARNING: shift/reduce conflict for TYPE_INTEGER in state 102 resolved as shift
-WARNING: shift/reduce conflict for TYPE_FLOAT in state 102 resolved as shift
-WARNING: shift/reduce conflict for CONDITIONAL1 in state 102 resolved as shift
-WARNING: shift/reduce conflict for LOOP1 in state 102 resolved as shift
-WARNING: shift/reduce conflict for LOOP2 in state 102 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 102 resolved as shift
-WARNING: shift/reduce conflict for BREAK in state 102 resolved as shift
-WARNING: shift/reduce conflict for COMMENT in state 102 resolved as shift
-WARNING: shift/reduce conflict for MINUS_OP in state 102 resolved as shift
-WARNING: shift/reduce conflict for LOGICAL_OP_NOT in state 102 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 102 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_INTEGER in state 102 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_FLOAT in state 102 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 102 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 102 resolved as shift
-WARNING: shift/reduce conflict for NULL in state 102 resolved as shift
-WARNING: shift/reduce conflict for TEXT_STRING in state 102 resolved as shift
-WARNING: shift/reduce conflict for TEXT_CHAR in state 102 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 104 resolved as shift
-WARNING: shift/reduce conflict for TYPE_BOOLEAN in state 104 resolved as shift
-WARNING: shift/reduce conflict for TYPE_STRING in state 104 resolved as shift
-WARNING: shift/reduce conflict for TYPE_CHAR in state 104 resolved as shift
-WARNING: shift/reduce conflict for TYPE_INTEGER in state 104 resolved as shift
-WARNING: shift/reduce conflict for TYPE_FLOAT in state 104 resolved as shift
-WARNING: shift/reduce conflict for CONDITIONAL1 in state 104 resolved as shift
-WARNING: shift/reduce conflict for LOOP1 in state 104 resolved as shift
-WARNING: shift/reduce conflict for LOOP2 in state 104 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 104 resolved as shift
-WARNING: shift/reduce conflict for BREAK in state 104 resolved as shift
-WARNING: shift/reduce conflict for COMMENT in state 104 resolved as shift
-WARNING: shift/reduce conflict for MINUS_OP in state 104 resolved as shift
-WARNING: shift/reduce conflict for LOGICAL_OP_NOT in state 104 resolved as shift
-WARNING: shift/reduce conflict for LPAREN in state 104 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_INTEGER in state 104 resolved as shift
-WARNING: shift/reduce conflict for NUMBER_FLOAT in state 104 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 104 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 104 resolved as shift
-WARNING: shift/reduce conflict for NULL in state 104 resolved as shift
-WARNING: shift/reduce conflict for TEXT_STRING in state 104 resolved as shift
-WARNING: shift/reduce conflict for TEXT_CHAR in state 104 resolved as shift

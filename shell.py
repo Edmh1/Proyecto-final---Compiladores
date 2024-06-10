@@ -3,13 +3,7 @@ from backend.parser import *
 
 # Ejemplo de uso
 data = '''
-SIGMA x <- 5 $
-REAL z <- 4.8 $
-ALPHA ( x+z < 15):
-  ELEVATE VERUM $
-BETA:
-  ELEVATE FALSUM $
-$
+ELEVATE 1+2$
 '''
 
 # Ejecución del lexer y parser

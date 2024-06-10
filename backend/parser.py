@@ -68,13 +68,17 @@ def p_declaration(p):
             pass
         else:
             raise TypeError(f"Type mismatch: expected {p[1]} but got {p[4]['result']}")
+        variables[var_name] = value
+        p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': p[4]}
+
     else:
         data_type = p[1]['value']
         var_name = p[2]
         value = None
+        variables[var_name] = value
+        p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': None}
     
-    variables[var_name] = value
-    p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': p[4]}
+    
 
 def p_expression(p):
     '''expression : binary_expression

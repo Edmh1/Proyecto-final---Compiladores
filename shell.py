@@ -5,10 +5,10 @@ from backend.parser import *
 data = '''
 SIGMA x <- 5 $
 REAL z <- 4.8 $
-ALPHA ( x+1 < 15):
-    ELEVATE VERUM $
+ALPHA ( x+z < 15):
+  ELEVATE VERUM $
 BETA:
-    ELEVATE FALSUM $
+  ELEVATE FALSUM $
 $
 '''
 
@@ -23,4 +23,3 @@ while True:
 
 result = parser.parse(data)
 print(result)
-##print(interpreter.visit(result))

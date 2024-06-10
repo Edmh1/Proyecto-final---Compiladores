@@ -43,20 +43,23 @@ def p_statement(p):
 def p_expression(p):
     '''expression : binary_expression
                   | unitary_expression
-                  | primary_expression'''
+                  | primary_expression
+                  '''
     p[0] = p[1]
 
 def p_binary_expression(p):
-    '''binary_expression : primary_expression PLUS_OP primary_expression
-                         | primary_expression MINUS_OP primary_expression
-                         | primary_expression MUL_OP primary_expression
-                         | primary_expression DIV_OP primary_expression
-                         | primary_expression LESS_OP primary_expression
-                         | primary_expression GREATER_OP primary_expression
-                         | primary_expression LESS_EQUAL_OP primary_expression
-                         | primary_expression GREATER_EQUAL_OP primary_expression
-                         | primary_expression EQUAL_OP primary_expression
-                         | primary_expression DIFFERENT_OP primary_expression'''
+    '''binary_expression : expression PLUS_OP expression
+                         | expression MINUS_OP expression
+                         | expression MUL_OP expression
+                         | expression DIV_OP expression
+                         | expression LESS_OP expression
+                         | expression GREATER_OP expression
+                         | expression LESS_EQUAL_OP expression
+                         | expression GREATER_EQUAL_OP expression
+                         | expression EQUAL_OP expression
+                         | expression DIFFERENT_OP expression
+                         | expression LOGICAL_OP_AND expression
+                         | expression LOGICAL_OP_OR expression'''
     left_value = p[1]['result']
     right_value = p[3]['result']
     if p[2] == '+':
@@ -79,11 +82,16 @@ def p_binary_expression(p):
         result = left_value == right_value
     elif p[2] == '!=':
         result = left_value != right_value
+    elif p[2] == 'MOGGED':
+        result = left_value and right_value
+    elif p[2] == 'GOD':
+        result = left_value or right_value
+
     p[0] = {'type': 'binary_expression', 'operator': p[2], 'left': p[1], 'right': p[3], 'result': result}
 
 def p_unitary_expression(p):
-    '''unitary_expression : MINUS_OP primary_expression
-                          | LOGICAL_OP_NOT primary_expression'''
+    '''unitary_expression : MINUS_OP expression
+                          | LOGICAL_OP_NOT expression'''
     if p[1] == '-':
         result = -p[2]['result']
     elif p[1] == 'FAKE':
@@ -92,7 +100,7 @@ def p_unitary_expression(p):
 
 def p_primary_expression(p):
     '''primary_expression : LPAREN expression RPAREN
-                          | term'''
+                            | term'''
     if len(p) == 4:
         p[0] = p[2]
     else:

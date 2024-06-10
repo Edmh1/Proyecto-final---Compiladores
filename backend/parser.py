@@ -145,8 +145,25 @@ def p_declaration(p):
                    | TYPE_INTEGER assignment
                    | TYPE_FLOAT assignment'''
     if isinstance(p[2], dict) and p[2]['type'] == 'assignment':
-        variables[p[2]['variable']] = p[2]['value']
-        p[0] = {'type': 'declaration', 'data_type': p[1], 'variable': p[2]['variable'], 'value': p[2]['value']}
+        data_type = p[1]
+        value = p[2]['value']
+        variable = p[2]['variable']
+
+        if data_type == 'SIGMA' and isinstance(value, int):
+            pass
+        elif data_type == 'REAL' and isinstance(value, float):
+            pass
+        elif data_type == 'STATUS' and value in ['VERUM', 'FALSUM']:
+            pass
+        elif data_type == 'CHAD' and isinstance(value, str) and len(value) == 1:
+            pass
+        elif data_type == 'GIGACHAD' and isinstance(value, str):
+            pass
+        else:
+            typeError(p)
+
+        variables[variable] = value
+        p[0] = {'type': 'declaration', 'data_type': data_type, 'variable': variable, 'value': value}
     else:
         variables[p[2]] = None
         p[0] = {'type': 'declaration', 'data_type': p[1], 'variable': p[2]}
@@ -202,8 +219,11 @@ def p_comment(p):
     '''comment : COMMENT'''
     p[0] = {'type': 'comment', 'value': p[1]}
 
-def p_error(p):
-    print(f"Syntax error at '{p.value}'")
+def p_syntax_error(p):
+    raise SyntaxError(f"Syntax error at '{p.value}' in '{p.lineno}'")
+
+def typeError(p):
+    raise TypeError(f"Type mismatch: expected {p[1]} but got {p[2]['value']}")
 
 # Construcción del parser
 parser = yacc.yacc()

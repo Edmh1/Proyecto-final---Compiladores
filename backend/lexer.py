@@ -28,6 +28,7 @@ tokens = [
     'TRUE',
     'FALSE',
     'NULL',
+    'PRINT_DECLARATION',
     'FUNCTION_DECLARATION',
     'ASSIGNMENT_OP',
     'LESS_OP',
@@ -67,6 +68,14 @@ t_RPAREN = r'\)'
 t_SEPARATION = r';'
 t_STRUCTURE_BODY = r':'
 t_END_LINE = r'\$'
+
+# Funciones
+def t_FUNCTION_DECLARATION(t):
+    r'COMMAND'
+    return t
+def t_PRINT_DECLARATION(t):
+    r'SIGMA_SPEAK'
+    return t
 
 # Tipos de datos
 def t_NUMBER_FLOAT(t):
@@ -148,16 +157,11 @@ def t_NULL(t):
     r'NIHIL'
     return t
 
-# Funciones
-def t_FUNCTION_DECLARATION(t):
-    r'COMMAND'
-    return t
 
 def t_COMMENT(t):
     r'\#[^#]+\#'
     t.value = t.value[1:-1]
     return t
-
 def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)

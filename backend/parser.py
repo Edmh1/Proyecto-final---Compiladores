@@ -274,13 +274,45 @@ def p_syntax_error(p):
 def typeError(p):
     raise TypeError(f"Type mismatch: expected {p[1]} but got {p[4]['result']}")
 
+################# respuesta final
+def evaluate_expression(expression):
+    if expression['type'] == 'binary_expression':
+        left = evaluate_expression(expression['left'])
+        right = evaluate_expression(expression['right'])
+        if expression['operator'] == '+':
+            return left + right
+        elif expression['operator'] == '-':
+            return left - right
+        elif expression['operator'] == '*':
+            return left * right
+        elif expression['operator'] == '/':
+            return left / right
+        elif expression['operator'] == '<':
+            return left < right
+        elif expression['operator'] == '>':
+            return left > right
+        elif expression['operator'] == '==':
+            return left == right
+        elif expression['operator'] == '<=':
+            return left <= right
+        elif expression['operator'] == '>=':
+            return left >= right
+        elif expression['operator'] == '!=':
+            return left != right
+    elif expression['type'] == 'term':
+        return expression['result']
+    elif expression['type'] == 'variable':
+        return variables[expression['name']]
+    else:
+        raise ValueError(f"Unknown expression type: {expression['type']}")
+
 def execute_statement(stmt):
     if stmt['type'] == 'assignment':
         variables[stmt['variable']] = stmt['value']
     elif stmt['type'] == 'declaration':
         variables[stmt['variable']] = stmt['value']
     elif stmt['type'] == 'sigma_speak':
-        print(stmt['value'])  # Asegúrate de imprimir el valor correcto
+        print(stmt['value'])
     elif stmt['type'] == 'conditional':
         if stmt['condition']['result']:
             for s in stmt['if_body']:
@@ -289,15 +321,19 @@ def execute_statement(stmt):
             for s in stmt['else_body']:
                 execute_statement(s)
     elif stmt['type'] == 'while_loop':
-        while stmt['condition']['result']:
+        while evaluate_expression(stmt['condition']):
             for s in stmt['body']:
                 execute_statement(s)
+            # Re-evaluar la condición del bucle después de cada iteración
+            stmt['condition']['result'] = evaluate_expression(stmt['condition'])
     elif stmt['type'] == 'for_loop':
         execute_statement(stmt['initialization'])
-        while stmt['condition']['result']:
+        while evaluate_expression(stmt['condition']):
             for s in stmt['body']:
                 execute_statement(s)
             execute_statement(stmt['increment'])
+            # Re-evaluar la condición del bucle después de cada iteración
+            stmt['condition']['result'] = evaluate_expression(stmt['condition'])
     elif stmt['type'] == 'return':
         raise ReturnStatement(stmt['value'])
     elif stmt['type'] == 'break':
@@ -308,7 +344,6 @@ def execute_statement(stmt):
         print(f"Found {stmt} statement!")
         raise ValueError(f"Unknown statement type: {stmt['type']}")
 
-# Agregar esta función al archivo para pruebas
 def execute_program(statements):
     for stmt in statements:
         execute_statement(stmt)

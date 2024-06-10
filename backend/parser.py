@@ -36,6 +36,8 @@ def p_statement(p):
                  | assignment END_LINE
                  | declaration END_LINE
                  | print_statement END_LINE
+                 | conditional END_LINE
+                 | loop END_LINE
                  | comment
                  | error
                  '''
@@ -44,36 +46,35 @@ def p_statement(p):
 def p_assignment(p):
     '''assignment : VARIABLE ASSIGNMENT_OP expression'''
     variables[p[1]] = p[3]['result']
-    p[0] = {'type': 'assignment', 'variable': p[1], 'value': p[3]['result']}
+    p[0] = {'type': 'assignment', 'variable': p[1], 'value': p[3]}
 
 def p_declaration(p):
     '''declaration : type VARIABLE ASSIGNMENT_OP expression
                    | type VARIABLE'''
     
     if len(p) == 5:
-        data_type = p[1]
+        data_type = p[1]['value']
         var_name = p[2]
         value = p[4]['result']
+        if data_type == 'SIGMA' and isinstance(value, int):
+            pass
+        elif data_type == 'REAL' and isinstance(value, float):
+            pass
+        elif data_type == 'STATUS' and value in ['VERUM', 'FALSUM']:
+            pass
+        elif data_type == 'CHAD' and isinstance(value, str) and len(value) == 1:
+            pass
+        elif data_type == 'GIGACHAD' and isinstance(value, str):
+            pass
+        else:
+            raise TypeError(f"Type mismatch: expected {p[1]} but got {p[4]['result']}")
     else:
-        data_type = p[1]
+        data_type = p[1]['value']
         var_name = p[2]
-        value = None 
-
-    if data_type == 'SIGMA' and isinstance(value, int):
-        pass
-    elif data_type == 'REAL' and isinstance(value, float):
-        pass
-    elif data_type == 'STATUS' and value in ['VERUM', 'FALSUM']:
-        pass
-    elif data_type == 'CHAD' and isinstance(value, str) and len(value) == 1:
-        pass
-    elif data_type == 'GIGACHAD' and isinstance(value, str):
-        pass
-    else:
-        raise TypeError(f"Type mismatch: expected {p[1]} but got {p[4]['result']}")
-
+        value = None
+    
     variables[var_name] = value
-    p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': value}
+    p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': p[4]}
 
 def p_expression(p):
     '''expression : binary_expression
@@ -166,7 +167,7 @@ def p_print_statement(p):
 
 def p_comment(p):
     '''comment : COMMENT'''
-    p[0] = None
+    p[0] = {}
 
 def p_empty(p):
     '''empty : '''
@@ -178,7 +179,33 @@ def p_type(p):
             | TYPE_BOOLEAN
             | TYPE_CHAR
             | TYPE_STRING'''
-    p[0] = p[1]
+    p[0] = {'type': 'type_value',
+            'value': p[1]}
+
+def p_conditional(p):
+    '''conditional : CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
+                   | CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list'''
+    if len(p) == 10:
+        p[0] = {
+            'type': 'conditional',
+            'condition': p[3],
+            'if_body': p[6],
+            'else_body': p[9]
+        }
+    else:
+        p[0] = {
+            'type': 'conditional',
+            'condition': p[3],
+            'if_body': p[6]
+        }
+
+def p_loop(p):
+    '''loop : LOOP STRUCTURE_BODY statement_list UNTIL LPAREN expression RPAREN'''
+    p[0] = {
+        'type': 'loop',
+        'condition': p[6],
+        'body': p[3]
+    }
 
 def p_error(p):
     if p:
@@ -194,6 +221,30 @@ def p_error(p):
 
 # Crear el parser
 parser = yacc.yacc()
+
+#Evalua
+def evaluate_statement(statement):
+    global variables
+    if statement['type'] == 'assignment':
+        variables[statement['variable']] = statement['value']
+    elif statement['type'] == 'declaration':
+        variables[statement['variable']] = statement['value']
+    elif statement['type'] == 'sigma_speak':
+        print(statement['value']['result'])
+    elif statement['type'] == 'conditional':
+        condition = statement['condition']['result']
+        if condition:
+            for stmt in statement['if_body']:
+                evaluate_statement(stmt)
+        elif 'else_body' in statement:
+            for stmt in statement['else_body']:
+                evaluate_statement(stmt)
+    elif statement['type'] == 'loop':
+        while not statement['condition']['result']:
+            for stmt in statement['body']:
+                evaluate_statement(stmt)
+    else:
+        raise ValueError(f"Unknown statement type: {statement['type']}")
 
 #Mostrar ATS
 def show_parser(code):

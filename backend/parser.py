@@ -204,6 +204,7 @@ def p_comment(p):
 
 def p_error(p):
     print(f"Syntax error at '{p.value}'")
+    exit()
 
 # Construcción del parser
 parser = yacc.yacc()

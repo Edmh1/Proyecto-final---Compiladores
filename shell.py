@@ -1,10 +1,9 @@
 from backend.lexer import *
 from backend.parser import *
-from backend.interprete import *
 
 # Ejemplo de uso
 data = '''
-ELEVATE 1+(2/7)$
+ELEVATE 1+2$
 '''
 
 # Ejecución del lexer y parser
@@ -17,4 +16,5 @@ while True:
     print(tok)
 
 result = parser.parse(data)
-print(interpreter.visit(result))
+print(result)
+##print(interpreter.visit(result))

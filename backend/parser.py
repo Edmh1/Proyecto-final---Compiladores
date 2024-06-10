@@ -133,40 +133,48 @@ def p_binary_expression(p):
                          | expression DIFFERENT_OP expression
                          | expression LOGICAL_OP_AND expression
                          | expression LOGICAL_OP_OR expression'''
-    left_value = p[1]['result']
-    right_value = p[3]['result']
-    if p[2] == '+':
-        result = left_value + right_value
-    elif p[2] == '-':
-        result = left_value - right_value
-    elif p[2] == '*':
-        result = left_value * right_value
-    elif p[2] == '/':
-        result = left_value / right_value
-    elif p[2] == '<':
-        result = left_value < right_value
-    elif p[2] == '>':
-        result = left_value > right_value
-    elif p[2] == '<=':
-        result = left_value <= right_value
-    elif p[2] == '>=':
-        result = left_value >= right_value
-    elif p[2] == '==':
-        result = left_value == right_value
-    elif p[2] == '!=':
-        result = left_value != right_value
-    elif p[2] == 'MOGGED':
-        result = left_value and right_value
-    elif p[2] == 'GOD':
-        result = left_value or right_value
-    p[0] = {'type': 'binary_expression', 'result': result}
+    p[0] = {
+        'type': 'binary_expression',
+        'left': p[1],
+        'operator': p[2],
+        'right': p[3],
+        'result': evaluate_binary_expression(p[1]['result'], p[2], p[3]['result'])
+    }
+
+def evaluate_binary_expression(left, operator, right):
+    if operator == '+':
+        return left + right
+    elif operator == '-':
+        return left - right
+    elif operator == '*':
+        return left * right
+    elif operator == '/':
+        return left / right
+    elif operator == '<':
+        return left < right
+    elif operator == '>':
+        return left > right
+    elif operator == '<=':
+        return left <= right
+    elif operator == '>=':
+        return left >= right
+    elif operator == '==':
+        return left == right
+    elif operator == '!=':
+        return left != right
+    elif operator == 'MOGGED':
+        return left and right
+    elif operator == 'GOD':
+        return left or right
+    else:
+        raise ValueError(f"Unknown operator: {operator}")
 
 def p_unitary_expression(p):
     '''unitary_expression : MINUS_OP expression
                           | LOGICAL_OP_NOT expression'''
     if p[1] == '-':
         result = -p[2]['result']
-    elif p[1] == 'NOT':
+    elif p[1] == 'FAKE':
         result = not p[2]['result']
     p[0] = {'type': 'unitary_expression', 'result': result}
 
@@ -176,6 +184,7 @@ def p_primary_expression(p):
                           | NUMBER_FLOAT
                           | TRUE
                           | FALSE
+                          | NULL
                           | TEXT_CHAR
                           | TEXT_STRING
                           | function_call'''
@@ -198,167 +207,139 @@ def p_declaration(p):
     
     if len(p) == 5:
         data_type = p[1]
-        variable = p[2]
+        var_name = p[2]
         value = p[4]['result']
-
-        if data_type == 'SIGMA' and isinstance(value, int):
-            pass
-        elif data_type == 'REAL' and isinstance(value, float):
-            pass
-        elif data_type == 'STATUS' and value in ['VERUM', 'FALSUM']:
-            pass
-        elif data_type == 'CHAD' and isinstance(value, str) and len(value) == 1:
-            pass
-        elif data_type == 'GIGACHAD' and isinstance(value, str):
-            pass
-        else:
-            typeError(p)
-
-        variables[variable] = value
-        p[0] = {'type': 'declaration', 'data_type': data_type, 'variable': variable, 'value': value}
     else:
-        variables[p[2]] = None
-        p[0] = {'type': 'declaration', 'data_type': p[2], 'variable': None}
+        data_type = p[1]
+        var_name = p[2]
+        value = None  # Puede agregar lógica predeterminada para tipos específicos aquí
+    
+    if data_type == 'SIGMA' and isinstance(value, int):
+        pass
+    elif data_type == 'REAL' and isinstance(value, float):
+        pass
+    elif data_type == 'STATUS' and value in ['VERUM', 'FALSUM']:
+        pass
+    elif data_type == 'CHAD' and isinstance(value, str) and len(value) == 1:
+        pass
+    elif data_type == 'GIGACHAD' and isinstance(value, str):
+        pass
+    else:
+        typeError(p)
+
+    variables[var_name] = value
+    p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': value}
 
 def p_conditional(p):
-    '''conditional : CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
-                   | CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list'''
-    if len(p) == 7:
-        p[0] = {'type': 'conditional', 'condition': p[3], 'if_body': [stmt for stmt in p[6] if stmt is not None]}
-    else:
+    '''conditional : CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list CONDITIONAL2 STRUCTURE_BODY statement_list
+                   | CONDITIONAL1 LPAREN expression RPAREN STRUCTURE_BODY statement_list'''
+    if len(p) == 10:
         p[0] = {'type': 'conditional', 'condition': p[3], 'if_body': [stmt for stmt in p[6] if stmt is not None], 'else_body': [stmt for stmt in p[9] if stmt is not None]}
+    else:
+        p[0] = {'type': 'conditional', 'condition': p[3], 'if_body': [stmt for stmt in p[6] if stmt is not None], 'else_body': []}
 
 def p_loop(p):
-    '''loop : LOOP1 LPAREN expression RPAREN STRUCTURE_BODY statement_list
-            | LOOP2 LPAREN assignment SEPARATION expression SEPARATION assignment RPAREN STRUCTURE_BODY statement_list'''
-    if p[1] == 'ALPHA_LOOP':
-        p[0] = {'type': 'while_loop', 'condition': p[3], 'body': p[6]}
-    else:
-        p[0] = {'type': 'for_loop', 'initialization': p[3], 'condition': p[5], 'increment': p[7], 'body': p[10]}
+    '''loop : LOOP STRUCTURE_BODY statement_list UNTIL LPAREN expression RPAREN'''
+    p[0] = {'type': 'loop', 'body': p[3], 'condition': p[6]}
 
 def p_return_statement(p):
-    '''return_statement : RETURN expression
-                        | RETURN'''
-    if len(p) == 3:
-        p[0] = {'type': 'return', 'value': p[2]['result']}
-        raise ReturnStatement(p[2]['result'])
-    else:
-        p[0] = {'type': 'return', 'value': None}
-        raise ReturnStatement(None)
+    '''return_statement : RETURN expression'''
+    raise ReturnStatement(p[2]['result'])
 
 def p_break_statement(p):
     '''break_statement : BREAK'''
-    p[0] = {'type': 'break'}
     raise BreakStatement()
 
 def p_comment(p):
     '''comment : COMMENT'''
-    p[0] = {'type': 'comment', 'value': p[1]}
+    p[0] = None
+
+def p_empty(p):
+    '''empty : '''
+    pass
 
 def p_type(p):
     '''type : TYPE_INTEGER
             | TYPE_FLOAT
             | TYPE_BOOLEAN
             | TYPE_CHAR
-            | TYPE_STRING
-            | NULL'''
+            | TYPE_STRING'''
     p[0] = p[1]
 
-def p_empty(p):
-    'empty :'
-    p[0] = None
-
-def p_syntax_error(p):
-    raise SyntaxError(f"Syntax error at '{p.value}' in '{p.lineno}'")
+def p_error(p):
+    if p:
+        print(f"Syntax error at '{p.value}', line {p.lineno}")
+    else:
+        print("Syntax error at EOF")
 
 def typeError(p):
     raise TypeError(f"Type mismatch: expected {p[1]} but got {p[4]['result']}")
 
-################# respuesta final
+# Crear el parser
+parser = yacc.yacc()
+
+# Función para ejecutar el parser
+def execute_function(func, local_vars):
+    try:
+        original_vars = variables.copy()
+        variables.update(local_vars)
+        for statement in func['body']:
+            evaluate_statement(statement)
+        return None
+    except ReturnStatement as e:
+        return e.value
+    finally:
+        variables.clear()
+        variables.update(original_vars)
+
+def evaluate_statement(statement):
+    global variables
+    if statement['type'] == 'assignment':
+        variables[statement['variable']] = statement['value']
+    elif statement['type'] == 'declaration':
+        variables[statement['variable']] = statement['value']
+    elif statement['type'] == 'conditional':
+        condition = statement['condition']['result']
+        if condition:
+            for stmt in statement['if_body']:
+                evaluate_statement(stmt)
+        elif 'else_body' in statement:
+            for stmt in statement['else_body']:
+                evaluate_statement(stmt)
+    elif statement['type'] == 'loop':
+        while not evaluate_expression(statement['condition']):
+            try:
+                for stmt in statement['body']:
+                    evaluate_statement(stmt)
+            except BreakStatement:
+                break
+    elif statement['type'] == 'sigma_speak':
+        print(statement['value'])
+    elif statement['type'] == 'function_call':
+        execute_function(functions[statement['name']], dict(zip([param[1] for param in functions[statement['name']]['params']], statement['arguments'])))
+    else:
+        raise ValueError(f"Unknown statement type: {statement['type']}")
+
 def evaluate_expression(expression):
     if expression['type'] == 'binary_expression':
-        left = evaluate_expression(expression['left'])
-        right = evaluate_expression(expression['right'])
-        if expression['operator'] == '+':
-            return left + right
-        elif expression['operator'] == '-':
-            return left - right
-        elif expression['operator'] == '*':
-            return left * right
-        elif expression['operator'] == '/':
-            return left / right
-        elif expression['operator'] == '<':
-            return left < right
-        elif expression['operator'] == '>':
-            return left > right
-        elif expression['operator'] == '==':
-            return left == right
-        elif expression['operator'] == '<=':
-            return left <= right
-        elif expression['operator'] == '>=':
-            return left >= right
-        elif expression['operator'] == '!=':
-            return left != right
+        return evaluate_binary_expression(expression['left']['result'], expression['operator'], expression['right']['result'])
+    elif expression['type'] == 'unitary_expression':
+        if expression['operator'] == '-':
+            return -evaluate_expression(expression['expression'])
+        elif expression['operator'] == 'FAKE':
+            return not evaluate_expression(expression['expression'])
     elif expression['type'] == 'term':
         return expression['result']
-    elif expression['type'] == 'variable':
-        return variables[expression['name']]
+    elif expression['type'] == 'function_call':
+        return execute_function(functions[expression['name']], dict(zip([param[1] for param in functions[expression['name']]['params']], expression['arguments'])))
     else:
         raise ValueError(f"Unknown expression type: {expression['type']}")
 
-def execute_statement(stmt):
-    if stmt['type'] == 'assignment':
-        variables[stmt['variable']] = stmt['value']
-    elif stmt['type'] == 'declaration':
-        variables[stmt['variable']] = stmt['value']
-    elif stmt['type'] == 'sigma_speak':
-        print(stmt['value'])
-    elif stmt['type'] == 'conditional':
-        if stmt['condition']['result']:
-            for s in stmt['if_body']:
-                execute_statement(s)
-        elif 'else_body' in stmt:
-            for s in stmt['else_body']:
-                execute_statement(s)
-    elif stmt['type'] == 'while_loop':
-        while evaluate_expression(stmt['condition']):
-            for s in stmt['body']:
-                execute_statement(s)
-            # Re-evaluar la condición del bucle después de cada iteración
-            stmt['condition']['result'] = evaluate_expression(stmt['condition'])
-    elif stmt['type'] == 'for_loop':
-        execute_statement(stmt['initialization'])
-        while evaluate_expression(stmt['condition']):
-            for s in stmt['body']:
-                execute_statement(s)
-            execute_statement(stmt['increment'])
-            # Re-evaluar la condición del bucle después de cada iteración
-            stmt['condition']['result'] = evaluate_expression(stmt['condition'])
-    elif stmt['type'] == 'return':
-        raise ReturnStatement(stmt['value'])
-    elif stmt['type'] == 'break':
-        raise BreakStatement()
-    elif stmt['type'] == 'function_declaration':
-        functions[stmt['name']] = {'params': stmt['params'], 'body': stmt['body']}
-    else:
-        print(f"Found {stmt} statement!")
-        raise ValueError(f"Unknown statement type: {stmt['type']}")
+def show_parser(code):
+    return parser.parse(code)
 
-def execute_program(statements):
-    for stmt in statements:
-        execute_statement(stmt)
-
-def execute_function(func, local_vars):
-    global variables
-    old_vars = variables
-    variables = local_vars
-    try:
-        for stmt in func['body']:
-            execute_statement(stmt)
-    except ReturnStatement as r:
-        variables = old_vars
-        return r.value
-    variables = old_vars
-
-# Construcción del parser
-parser = yacc.yacc()
+# Función principal para ejecutar el parser con el código de entrada
+def run_parser(code):
+    result = parser.parse(code)
+    for statement in result:
+        evaluate_statement(statement)

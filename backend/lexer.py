@@ -18,8 +18,8 @@ tokens = [
     'TYPE_FLOAT',
     'CONDITIONAL1',
     'CONDITIONAL2',
-    'LOOP1',
-    'LOOP2',
+    'LOOP',
+    'UNTIL',
     'BREAK',
     'RETURN',
     'LOGICAL_OP_NOT',
@@ -116,11 +116,11 @@ def t_TYPE_FLOAT(t):
     return t
 
 # Estructuras de control
-def t_LOOP1(t):
+def t_LOOP(t):
     r'ALPHA_LOOP'
     return t
-def t_LOOP2(t):
-    r'BETA_LOOP'
+def t_UNTIL(t):
+    r'UNTIL'
     return t
 def t_CONDITIONAL1(t):
     r'ALPHA'

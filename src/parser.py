@@ -224,27 +224,30 @@ parser = yacc.yacc()
 
 #Evalua
 def evaluate_statement(statement):
+
     global variables
+    resultado = None
     if statement['type'] == 'assignment':
         variables[statement['variable']] = statement['value']
     elif statement['type'] == 'declaration':
         variables[statement['variable']] = statement['value']
     elif statement['type'] == 'sigma_speak':
-        print(statement['value']['result'])
+        resultado = (statement['value']['result'])
     elif statement['type'] == 'conditional':
         condition = statement['condition']['result']
         if condition:
             for stmt in statement['if_body']:
-                evaluate_statement(stmt)
+                resultado = evaluate_statement(stmt)
         elif 'else_body' in statement:
             for stmt in statement['else_body']:
-                evaluate_statement(stmt)
+                resultado = evaluate_statement(stmt)
     elif statement['type'] == 'loop':
         while not statement['condition']['result']:
             for stmt in statement['body']:
-                evaluate_statement(stmt)
+                resultado = evaluate_statement(stmt)
     else:
         raise ValueError(f"Unknown statement type: {statement['type']}")
+    return resultado
 
 #Mostrar ATS
 def show_parser(code):

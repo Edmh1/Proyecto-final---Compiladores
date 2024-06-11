@@ -24,7 +24,7 @@ function getInput(){
 
 function lexCode(){
     var code = getInput();
-    fetch('http://127.0.0.1:5000/lexer', {
+    fetch('https://sigmachar-interprete.onrender.com/lexer', {
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function lexCode(){
 
 function parseCode(){
     var code = getInput();
-    fetch('http://127.0.0.1:5000/parser', {
+    fetch('https://sigmachar-interprete.onrender.com/parser', {
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',

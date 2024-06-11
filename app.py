@@ -5,7 +5,7 @@ import json
 from ply.lex import LexToken
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5500"}})
+CORS(app, resources={r"/*": {"origins": "https://sigmachar-interprete.onrender.com/"}})
 
 def find_lex_token(dictionary):
     if isinstance(dictionary, LexToken):

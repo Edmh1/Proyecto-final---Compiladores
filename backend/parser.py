@@ -16,7 +16,6 @@ precedence = (
 # Diccionario de variables y funciones
 variables = {}
 functions = {}
-prints = []
 
 # Definición de la gramática
 def p_program(p):
@@ -78,8 +77,6 @@ def p_declaration(p):
         variables[var_name] = value
         p[0] = {'type': 'declaration', 'variable': var_name, 'data_type': data_type, 'value': None}
     
-    
-
 def p_expression(p):
     '''expression : binary_expression
                   | unitary_expression
@@ -110,31 +107,32 @@ def p_binary_expression(p):
 
 def evaluate_binary_expression(left, operator, right):
     if operator == '+':
-        return left + right
+        result = left + right
     elif operator == '-':
-        return left - right
+        result = left - right
     elif operator == '*':
-        return left * right
+        result = left * right
     elif operator == '/':
-        return left / right
+        result = left / right
     elif operator == '<':
-        return left < right
+        result = left < right
     elif operator == '>':
-        return left > right
+        result = left > right
     elif operator == '<=':
-        return left <= right
+        result = left <= right
     elif operator == '>=':
-        return left >= right
+        result = left >= right
     elif operator == '==':
-        return left == right
+        result = left == right
     elif operator == '!=':
-        return left != right
+        result = left != right
     elif operator == 'MOGGED':
-        return left and right
+        result = left and right
     elif operator == 'GOD':
-        return left or right
+        result = left or right
     else:
         raise ValueError(f"Unknown operator: {operator}")
+    return result
 
 def p_unitary_expression(p):
     '''unitary_expression : MINUS_OP expression
@@ -143,7 +141,7 @@ def p_unitary_expression(p):
         result = -p[2]['result']
     elif p[1] == 'FAKE':
         result = not p[2]['result']
-    p[0] = {'type': 'unitary_expression', 'result': result}
+    p[0] = {'type': 'unitary_expression', 'operator': p[1], 'expression': p[2], 'result': result}
 
 def p_primary_expression(p):
     '''primary_expression : VARIABLE
@@ -163,11 +161,9 @@ def p_primary_expression(p):
     else:
         p[0] = {'type': 'term', 'result': p[1]}
 
-
 def p_print_statement(p):
     '''print_statement : PRINT_DECLARATION LPAREN expression RPAREN'''
     p[0] = {'type': 'sigma_speak', 'value': p[3]}
-    prints.append(p[3]['result']) 
 
 def p_comment(p):
     '''comment : COMMENT'''
@@ -207,8 +203,8 @@ def p_loop(p):
     '''loop : LOOP STRUCTURE_BODY statement_list UNTIL LPAREN expression RPAREN'''
     p[0] = {
         'type': 'loop',
-        'condition': p[6],
-        'body': p[3]
+        'body': p[3],
+        'condition': p[6]
     }
 
 def p_error(p):
@@ -226,17 +222,17 @@ def p_error(p):
 # Crear el parser
 parser = yacc.yacc()
 
-#Evalua
+# Evalua una instrucción
 def evaluate_statement(statement):
     global variables
     if statement['type'] == 'assignment':
-        variables[statement['variable']] = statement['value']
+        variables[statement['variable']] = evaluate_expression(statement['value'])
     elif statement['type'] == 'declaration':
-        variables[statement['variable']] = statement['value']
+        variables[statement['variable']] = evaluate_expression(statement['value'])
     elif statement['type'] == 'sigma_speak':
-        print(statement['value']['result'])
+        print(evaluate_expression(statement['value']))
     elif statement['type'] == 'conditional':
-        condition = statement['condition']['result']
+        condition = evaluate_expression(statement['condition'])
         if condition:
             for stmt in statement['if_body']:
                 evaluate_statement(stmt)
@@ -244,18 +240,43 @@ def evaluate_statement(statement):
             for stmt in statement['else_body']:
                 evaluate_statement(stmt)
     elif statement['type'] == 'loop':
-        while not statement['condition']['result']:
+        while True:
+            condition = evaluate_expression(statement['condition'])
+            if not condition:
+                break
             for stmt in statement['body']:
                 evaluate_statement(stmt)
     else:
         raise ValueError(f"Unknown statement type: {statement['type']}")
 
-#Mostrar ATS
+def evaluate_expression(expression):
+    if isinstance(expression, bool) or isinstance(expression, (int, float, str)):  
+        return expression
+
+    elif isinstance(expression, dict):  
+        expr_type = expression['type']
+
+        if expr_type == 'term':
+            if 'result' in expression:
+                return expression['result']
+            else:
+                return variables[expression['value']]
+
+        elif expr_type == 'unitary_expression':
+            if expression['operator'] == '-':
+                return -evaluate_expression(expression['expression'])
+            elif expression['operator'] == 'FAKE':
+                return not evaluate_expression(expression['expression'])
+
+        elif expr_type == 'binary_expression':
+            left = evaluate_expression(expression['left'])
+            operator = expression['operator']
+            right = evaluate_expression(expression['right'])
+            return evaluate_binary_expression(left, operator, right)
+
+    else:
+        raise ValueError(f"Unknown expression type: {expression}")
+
+# Mostrar ATS
 def show_parser(code):
     return parser.parse(code)
-
-# Función principal para ejecutar el parser con el código de entrada
-def run_parser():
-    if(prints is not None):
-        for i in prints:
-            print(i)

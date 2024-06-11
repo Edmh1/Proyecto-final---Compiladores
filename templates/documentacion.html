@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación - SigmaChar</title>
+    <link rel="stylesheet" href="../static/css/documentacion.css"/>
+    <link rel="icon" href="../static/assets/img/logoSigmaCharSinFondo.png">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="home-button">Inicio</a>
+        <h1>Documentation - SigmaChar 🍷</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Online Interpreter</h2>
+            <p><strong>What is an interpreter?</strong></p>
+            <p>An interpreter is a type of computer program that directly executes instructions written in a programming or scripting language. It does not require compilation into a machine learning program. Different types of interpreters are constructed for several languages that are traditionally associated with compilation. An interpreter consists of a set of commands that it can execute.</p>
+            <p><strong>How does it work?</strong></p>
+            <p>Interpreter transforms high level language code into machine-understandable code or an intermediate language that can be executed well. An interpreter reads every line of code, translates it into machine code and then immediately executes it. The interpreter executes every source statement line by line during execution. An interpreter provides detailed error messages and supports interactive debugging.</p>
+            <p><strong>Online interpreter</strong></p>
+            <p>An Online compiler (interpreter) is a web-based application that helps you to run code online without installing the programming language compiler on your device. It's commonly used for beginners to run and execute their code in a quick way.</p>
+        </section>
+        <section>
+            <h2>What do we need to make an interpreter?</h2>
+            <p>An interpreter is a complex program, so there are multiple stages to it:</p>
+            <ul>
+                <li>A lexer, which is the part of an interpreter that turns a sequence of characters (plain text) into a sequence of tokens.</li>
+                <li>A parser, in turn, takes a sequence of tokens and produces an abstract syntax tree (AST) of a language. The rules by which a parser operates are usually specified by a formal grammar.</li>
+                <li>An interpreter is a program that interprets the AST of the source of a program on the fly (without compiling it first).</li>
+            </ul>
+            <p>All that said, for our project, we decided to use PLY to make our lexer and parser. Let's see an introduction to PLY and an overview:</p>
+        </section>
+        <section>
+            <h2>Introduction to PLY</h2>
+            <p>PLY is a pure-Python implementation of the popular compiler construction tools lex and yacc. The main goal of PLY is to stay fairly faithful to the way in which traditional lex/yacc tools work. This includes supporting LALR(1) parsing as well as providing extensive input validation, error reporting, and diagnostics.</p>
+            <h3>Overview</h3>
+            <p>PLY consists of two separate modules; lex.py and yacc.py, both of which are found in a Python package called ply. The lex.py module is used to break input text into a collection of tokens specified by a collection of regular expression rules. yacc.py is used to recognize language syntax that has been specified in the form of a context free grammar.</p>
+            <p>The two tools are meant to work together. Specifically, lex.py provides an external interface in the form of a token() function that returns the next valid token on the input stream. yacc.py calls this repeatedly to retrieve tokens and invoke grammar rules. The output of yacc.py is often an Abstract Syntax Tree (AST).</p>
+            <p>Like its Unix counterpart, yacc.py provides most of the features you expect including extensive error checking, grammar validation, support for empty productions, error tokens, and ambiguity resolution via precedence rules. In fact, almost everything that is possible in traditional yacc should be supported in PLY.</p>
+        </section>
+        <section>
+            <h2>SigmaChar</h2>
+            <p>SigmaChar is the name our group decided to give to our own programming language. Let's review the basic principles of SigmaChar.</p>
+            <h3>Control Flow Keywords:</h3>
+            <ul>
+                <li>If → ALPHA</li>
+                <li>Else → BETA</li>
+            </ul>
+            <h3>Variable Types:</h3>
+            <ul>
+                <li>bool → STATUS</li>
+                <li>int → SIGMA</li>
+                <li>float → REAL</li>
+                <li>char → CHAD</li>
+                <li>str → GIGACHAD</li>
+            </ul>
+            <h3>Operators:</h3>
+            <ul>
+                <li>Addition (+)</li>
+                <li>Subtraction (-)</li>
+                <li>Multiplication (*)</li>
+                <li>Division (/)</li>
+                <li>Greater than (>)</li>
+                <li>Greater than or equal to (>=)</li>
+                <li>Less than (<)</li>
+                <li>Less than or equal to (<=)</li>
+                <li>Equal to (==)</li>
+                <li>Not equal to (!=)</li>
+                <li>Assignment (<-)</li>
+            </ul>
+            <h3>Logical Operators:</h3>
+            <ul>
+                <li>not → FAKE</li>
+                <li>and → MOGGED</li>
+                <li>or → GOD</li>
+            </ul>
+            <h3>Symbols:</h3>
+            <ul>
+                <li>Left Parenthesis → '('</li>
+                <li>Right Parenthesis → ')'</li>
+                <li>Body Structure → ':'</li>
+                <li>String Delimiter → '@'</li>
+                <li>Comment Delimiter → '#'</li>
+                <li>End of Line → '$'</li>
+            </ul>
+            <h3>Reserved words:</h3>
+            <ul>
+                <li>print() → SIGMA_SPEAK()</li>
+                <li>True → VERUM</li>
+                <li>False → FALSUM</li>
+                <li>None → NIHIL</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Examples</h2>
+            <h3>Example 1:</h3>
+            <pre>
+SIGMA a$
+a <- 3$
+ALPHA(a>=1+2):
+    SIGMA_SPEAK(@Estoy en el if@)$
+BETA:
+    SIGMA_SPEAK(@Estoy en el else@)$
+$
+SIGMA_SPEAK(@FIN@)$
+            </pre>
+            <h3>Example 2:</h3>
+            <pre>
+SIGMA_SPEAK(1+2/7)$
+            </pre>
+            <h3>Example 3:</h3>
+            <pre>
+GIGACHAD b <- @y@$
+SIGMA_SPEAK (b) $
+            </pre>
+            <h3>Example 4:</h3>
+            <pre>
+GIGACHAD b <- @yo con mis amigo@$
+GIGACHAD a <- @hola@$
+SIGMA_SPEAK (a+b) $
+            </pre>
+        </section>
+    </main>
+    <br>
+    <br>
+    <br>
+    <footer>
+        <a href="https://github.com/Edmh1/SigmaChar-interprete" target="_blank">
+            <img src="../static/assets/img/github-mark-white.png">
+        </a>
+        <div>© Todos los derechos reservados - SigmaChar 2024</div>
+    </footer>
+</body>
+</html>

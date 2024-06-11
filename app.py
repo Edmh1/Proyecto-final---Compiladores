@@ -86,19 +86,19 @@ def lexer_route():
                 pass
         except:
             resultJSON[0] = {
-                'result' : 'incorrecto', 'content' : 'Hay erroes en el código'
+                'result' : 'incorrecto', 'content' : 'Hay errores en el código!!'
             }
             return json.dumps(resultJSON)
         
         print(result)
         if result is None:
             resultJSON[0] = {
-                'result': 'correcto', 'content': 'No hay errores en el código' 
+                'result': 'correcto', 'content': 'No hay errores en el código :)' 
             }
             return json.dumps(resultJSON)
         else:
             resultJSON[0] = {
-                'result' : 'incorrecto', 'content' : 'Hay erroes en el código'
+                'result' : 'incorrecto', 'content' : 'Hay errores en el código !!'
             }
             return json.dumps(resultJSON)
 

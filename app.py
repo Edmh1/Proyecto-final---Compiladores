@@ -81,7 +81,14 @@ def lexer_route():
             if not tok:
                 break
         ast = src.show_parser(data)
-        result = find_lex_token(ast)
+        try:
+            for statement in ast:
+                pass
+        except:
+            resultJSON[0] = {
+                'result' : 'incorrecto', 'content' : 'Hay erroes en el código'
+            }
+            return json.dumps(resultJSON)
         
         print(result)
         if result is None:

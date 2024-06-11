@@ -164,7 +164,6 @@ def p_primary_expression(p):
 def p_print_statement(p):
     '''print_statement : PRINT_DECLARATION LPAREN expression RPAREN'''
     p[0] = {'type': 'sigma_speak', 'value': p[3]}
-    prints.append(p[3]['result']) 
 
 def p_comment(p):
     '''comment : COMMENT'''

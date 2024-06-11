@@ -222,7 +222,6 @@ def p_error(p):
 # Crear el parser
 parser = yacc.yacc()
 
-# Evalua una instrucción
 def evaluate_statement(statement):
     global variables
     if statement['type'] == 'assignment':
@@ -240,12 +239,22 @@ def evaluate_statement(statement):
             for stmt in statement['else_body']:
                 evaluate_statement(stmt)
     elif statement['type'] == 'loop':
-        while True:
-            condition = evaluate_expression(statement['condition'])
-            if not condition:
-                break
+        while not evaluate_expression(statement['condition']):
             for stmt in statement['body']:
                 evaluate_statement(stmt)
+            # Reevaluate the condition after executing the loop body
+            statement['condition'] = {
+                'type': 'binary_expression',
+                'left': statement['condition']['left'],
+                'operator': statement['condition']['operator'],
+                'right': statement['condition']['right'],
+                'result': evaluate_binary_expression(
+                    evaluate_expression(statement['condition']['left']),
+                    statement['condition']['operator'],
+                    evaluate_expression(statement['condition']['right'])
+                )
+            }
+            print(statement['condition'])
     else:
         raise ValueError(f"Unknown statement type: {statement['type']}")
 

@@ -51,10 +51,6 @@ SigmaChar is the name out group decided to give to our own programming language.
 	```
 	- If → ALPHA
 	- Else → BETA
-	- While → ALPHA_LOOP
-	- For → BETA_LOOP
-	- break → BYEBYE
-	- return → ELEVATE
 	
 - ## Variable Types:
 	```
@@ -89,7 +85,6 @@ SigmaChar is the name out group decided to give to our own programming language.
 	```
 	- Left Parenthesis   →  '('
 	- Right Parenthesis  →  ')'
-	- Separation         →  ';'
 	- Body Structure     →  ':'
 	- String Delimiter   →  '@'
 	- Comment Delimiter  →  '#' 
@@ -98,7 +93,7 @@ SigmaChar is the name out group decided to give to our own programming language.
 
 - ## Reserved words:
 	```
-	- def → COMMAND
+	- print() → SIGMA_SPEAK()
 	- True → VERUM
 	- False → FALSUM
 	- None → NIHIL
@@ -108,11 +103,32 @@ SigmaChar is the name out group decided to give to our own programming language.
 Here's a little example: 
 
 ```
-SIGMA integer <- 2$
-REAL float <- 0$
-ALPHA (integer == 2 MOGGED float == 0):
-	float <- integer * 3.1416$
+## Example 1:
+
+SIGMA a$
+a <- 3$
+ALPHA(a>=1+2):
+    SIGMA_SPEAK(@Estoy en el if@)$
+BETA:
+    SIGMA_SPEAK(@Estoy en el else@)$
 $
+SIGMA_SPEAK(@FIN@)$
+--------------------------------------
+## Example 2:
+
+SIGMA_SPEAK(1+2/7)$
+--------------------------------------
+## Example 3:
+
+GIGACHAD b <- @y@$
+SIGMA_SPEAK (b) $
+--------------------------------------
+## Example 4:
+
+GIGACHAD b <- @yo con mis amigo@$
+GIGACHAD a <- @hola@$
+SIGMA_SPEAK (a+b) $
+
 ```
 
 ## Members:

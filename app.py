@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request
 import src
 from flask_cors import CORS
 import json
@@ -33,7 +33,10 @@ def find_lex_token(dictionary):
 @app.route('/')
 def start():
     return render_template('index.html')
-    
+
+@app.route('/documentacion')
+def documentacion():
+    return render_template('documentacion.html')
 
 @app.route('/parser', methods=['POST'])
 def parser_route():
@@ -61,9 +64,9 @@ def parser_route():
         for statement in ast:
             resultado = src.evaluate_statement(statement)
             print(resultado)
-            if(resultado != None):
+            if resultado is not None:
                 resultJSON[i] = {
-                    'result' : 'resultado', 'content' : resultado
+                    'result': 'resultado', 'content': resultado
                 }
                 i += 1
         return json.dumps(resultJSON)
@@ -86,7 +89,7 @@ def lexer_route():
                 pass
         except:
             resultJSON[0] = {
-                'result' : 'incorrecto', 'content' : 'Hay errores en el código!!'
+                'result': 'incorrecto', 'content': 'Hay errores en el código!!'
             }
             return json.dumps(resultJSON)
         
@@ -98,7 +101,7 @@ def lexer_route():
             return json.dumps(resultJSON)
         else:
             resultJSON[0] = {
-                'result' : 'incorrecto', 'content' : 'Hay errores en el código !!'
+                'result': 'incorrecto', 'content': 'Hay errores en el código !!'
             }
             return json.dumps(resultJSON)
 
